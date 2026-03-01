@@ -1,0 +1,64 @@
+{
+  "name": "@repo/nuxt-query",
+  "version": "1.0.0",
+  "description": "My new Nuxt module",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    },
+    "./core": {
+      "types": "./dist/runtime/index.d.ts",
+      "import": "./dist/runtime/index.js"
+    },
+    "./composables/*": {
+      "types": "./dist/runtime/composables/*.d.ts",
+      "import": "./dist/runtime/composables/*.js"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "npm run dev:prepare && nuxt dev playground",
+    "build": "nuxi prepare && pnpm prepack",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@cspell/eslint-plugin": "^9.6.4",
+    "@nuxt/kit": "^4.3.0",
+    "@tanstack/query-core": "^5.90.20",
+    "vue-demi": "^0.14.10"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^3.1.1",
+    "@nuxt/eslint-config": "^1.13.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.3.0",
+    "@nuxt/test-utils": "^3.23.0",
+    "@types/node": "latest",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.39.2",
+    "nuxt": "^4.3.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.18",
+    "vue": "^3.5.0",
+    "vue-tsc": "^3.2.4"
+  }
+}
