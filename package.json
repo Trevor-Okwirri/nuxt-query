@@ -30,6 +30,7 @@
     "dist"
   ],
   "scripts": {
+    "postinstall": "nuxt-module-build build --stub",
     "prepack": "nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxt dev playground",
     "build": "nuxi prepare && pnpm prepack",
