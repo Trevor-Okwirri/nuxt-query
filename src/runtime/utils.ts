@@ -1,5 +1,5 @@
-import { isRef, unref } from 'vue-demi'
 import type { MaybeRefDeep } from './types'
+import { isRef, unref } from 'vue-demi'
 
 export const VUE_QUERY_CLIENT = 'VUE_QUERY_CLIENT'
 
@@ -96,8 +96,7 @@ export function cloneDeepUnref<T>(
   })
 }
 
-// eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
-function isPlainObject(value: unknown): value is Object {
+function isPlainObject(value: unknown): value is object {
   if (Object.prototype.toString.call(value) !== '[object Object]') {
     return false
   }

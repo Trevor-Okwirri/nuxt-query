@@ -1,5 +1,3 @@
-import { QueryCache as QC } from '@tanstack/query-core'
-import { cloneDeepUnref } from './utils'
 import type {
   DefaultError,
   Query,
@@ -7,6 +5,8 @@ import type {
   WithRequired,
 } from '@tanstack/query-core'
 import type { MaybeRefDeep } from './types'
+import { QueryCache as QC } from '@tanstack/query-core'
+import { cloneDeepUnref } from './utils'
 
 export class QueryCache extends QC {
   override find<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData>(

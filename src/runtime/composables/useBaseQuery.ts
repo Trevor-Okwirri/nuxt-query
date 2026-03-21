@@ -1,3 +1,15 @@
+import type {
+  DefaultedQueryObserverOptions,
+  QueryKey,
+  QueryObserver,
+  QueryObserverResult,
+} from '@tanstack/query-core'
+import type { Ref } from 'vue-demi'
+import type { QueryClient } from '../queryClient'
+import type { MaybeRefOrGetter } from '../types'
+import type { UseInfiniteQueryOptions } from './useInfiniteQuery'
+import type { UseQueryOptions } from './useQuery'
+import { shouldThrowError } from '@tanstack/query-core'
 import {
   computed,
   getCurrentScope,
@@ -9,20 +21,8 @@ import {
   toRefs,
   watch,
 } from 'vue-demi'
-import { shouldThrowError } from '@tanstack/query-core'
-import { useQueryClient } from './useQueryClient'
 import { cloneDeepUnref, updateState } from '../utils'
-import type { Ref } from 'vue-demi'
-import type {
-  DefaultedQueryObserverOptions,
-  QueryKey,
-  QueryObserver,
-  QueryObserverResult,
-} from '@tanstack/query-core'
-import type { QueryClient } from '../queryClient'
-import type { UseQueryOptions } from './useQuery'
-import type { UseInfiniteQueryOptions } from './useInfiniteQuery'
-import type { MaybeRefOrGetter } from '../types'
+import { useQueryClient } from './useQueryClient'
 
 export type UseBaseQueryReturnType<
   TData,
@@ -33,8 +33,8 @@ export type UseBaseQueryReturnType<
   | 'fetchNextPage'
   | 'fetchPreviousPage'
   | 'refetch'
-  ? TResult[K]
-  : Ref<Readonly<TResult>[K]>
+    ? TResult[K]
+    : Ref<Readonly<TResult>[K]>
 } & {
   suspense: () => Promise<TResult>
 }
@@ -46,9 +46,9 @@ type UseQueryOptionsGeneric<
   TQueryData,
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
-> =
-  | UseQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>
-  | UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>
+>
+  = | UseQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>
+    | UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>
 
 export function useBaseQuery<
   TQueryFnData,
@@ -174,11 +174,13 @@ export function useBaseQuery<
                     ])
                   ) {
                     reject(error)
-                  } else {
+                  }
+                  else {
                     resolve(observer.getCurrentResult())
                   }
                 })
-            } else {
+            }
+            else {
               stopWatch()
               resolve(optimisticResult)
             }
@@ -197,9 +199,9 @@ export function useBaseQuery<
     () => state.error,
     (error) => {
       if (
-        state.isError &&
-        !state.isFetching &&
-        shouldThrowError(defaultedOptions.value.throwOnError, [
+        state.isError
+        && !state.isFetching
+        && shouldThrowError(defaultedOptions.value.throwOnError, [
           error as TError,
           observer.getCurrentQuery(),
         ])

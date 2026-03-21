@@ -1,9 +1,3 @@
-import { InfiniteQueryObserver } from '@tanstack/query-core'
-import { useBaseQuery } from './useBaseQuery'
-import type {
-  DefinedInitialDataInfiniteOptions,
-  UndefinedInitialDataInfiniteOptions,
-} from '../infiniteQueryOptions'
 import type {
   DefaultError,
   InfiniteData,
@@ -12,9 +6,11 @@ import type {
   QueryKey,
   QueryObserver,
 } from '@tanstack/query-core'
-
-import type { UseBaseQueryReturnType } from './useBaseQuery'
-
+import type {
+  DefinedInitialDataInfiniteOptions,
+  UndefinedInitialDataInfiniteOptions,
+} from '../infiniteQueryOptions'
+import type { QueryClient } from '../queryClient'
 import type {
   DeepUnwrapRef,
   MaybeRef,
@@ -22,7 +18,11 @@ import type {
   MaybeRefOrGetter,
   ShallowOption,
 } from '../types'
-import type { QueryClient } from '../queryClient'
+
+import type { UseBaseQueryReturnType } from './useBaseQuery'
+
+import { InfiniteQueryObserver } from '@tanstack/query-core'
+import { useBaseQuery } from './useBaseQuery'
 
 export type UseInfiniteQueryOptions<
   TQueryFnData = unknown,
@@ -39,24 +39,24 @@ export type UseInfiniteQueryOptions<
       TQueryKey,
       TPageParam
     >]: Property extends 'enabled'
-    ? MaybeRefOrGetter<
-      InfiniteQueryObserverOptions<
-        TQueryFnData,
-        TError,
-        TData,
-        DeepUnwrapRef<TQueryKey>,
-        TPageParam
-      >[Property]
-    >
-    : MaybeRefDeep<
-      InfiniteQueryObserverOptions<
-        TQueryFnData,
-        TError,
-        TData,
-        DeepUnwrapRef<TQueryKey>,
-        TPageParam
-      >[Property]
-    >
+      ? MaybeRefOrGetter<
+        InfiniteQueryObserverOptions<
+          TQueryFnData,
+          TError,
+          TData,
+          DeepUnwrapRef<TQueryKey>,
+          TPageParam
+        >[Property]
+      >
+      : MaybeRefDeep<
+        InfiniteQueryObserverOptions<
+          TQueryFnData,
+          TError,
+          TData,
+          DeepUnwrapRef<TQueryKey>,
+          TPageParam
+        >[Property]
+      >
   } & ShallowOption
 >
 

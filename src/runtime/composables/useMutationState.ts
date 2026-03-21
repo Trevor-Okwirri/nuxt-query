@@ -1,3 +1,12 @@
+import type {
+  MutationFilters as MF,
+  Mutation,
+  MutationState,
+} from '@tanstack/query-core'
+import type { Ref } from 'vue-demi'
+import type { MutationCache } from '../mutationCache'
+import type { QueryClient } from '../queryClient'
+import type { MaybeRefDeep } from '../types'
 import {
   computed,
   getCurrentScope,
@@ -6,17 +15,8 @@ import {
   shallowRef,
   watch,
 } from 'vue-demi'
-import { useQueryClient } from './useQueryClient'
 import { cloneDeepUnref } from '../utils'
-import type { Ref } from 'vue-demi'
-import type {
-  MutationFilters as MF,
-  Mutation,
-  MutationState,
-} from '@tanstack/query-core'
-import type { QueryClient } from '../queryClient'
-import type { MaybeRefDeep } from '../types'
-import type { MutationCache } from '../mutationCache'
+import { useQueryClient } from './useQueryClient'
 
 export type MutationFilters = MaybeRefDeep<MF>
 
@@ -48,7 +48,7 @@ export function useIsMutating(
   return length
 }
 
-export type MutationStateOptions<TResult = MutationState> = {
+export interface MutationStateOptions<TResult = MutationState> {
   filters?: MutationFilters
   select?: (mutation: Mutation) => TResult
 }

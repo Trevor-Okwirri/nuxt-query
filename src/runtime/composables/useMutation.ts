@@ -1,3 +1,15 @@
+import type {
+  DefaultError,
+  DistributiveOmit,
+  MutateFunction,
+  MutateOptions,
+  MutationObserverOptions,
+  MutationObserverResult,
+} from '@tanstack/query-core'
+import type { ToRefs } from 'vue-demi'
+import type { QueryClient } from '../queryClient'
+import type { MaybeRefDeep, ShallowOption } from '../types'
+import { MutationObserver, shouldThrowError } from '@tanstack/query-core'
 import {
   computed,
   getCurrentScope,
@@ -9,38 +21,26 @@ import {
   toRefs,
   watch,
 } from 'vue-demi'
-import { MutationObserver, shouldThrowError } from '@tanstack/query-core'
 import { cloneDeepUnref, updateState } from '../utils'
 import { useQueryClient } from './useQueryClient'
-import type { ToRefs } from 'vue-demi'
-import type {
-  DefaultError,
-  DistributiveOmit,
-  MutateFunction,
-  MutateOptions,
-  MutationObserverOptions,
-  MutationObserverResult,
-} from '@tanstack/query-core'
-import type { MaybeRefDeep, ShallowOption } from '../types'
-import type { QueryClient } from '../queryClient'
 
-type MutationResult<TData, TError, TVariables, TOnMutateResult> =
-  DistributiveOmit<
+type MutationResult<TData, TError, TVariables, TOnMutateResult>
+  = DistributiveOmit<
     MutationObserverResult<TData, TError, TVariables, TOnMutateResult>,
     'mutate' | 'reset'
   >
 
-type UseMutationOptionsBase<TData, TError, TVariables, TOnMutateResult> =
-  MutationObserverOptions<TData, TError, TVariables, TOnMutateResult> &
-  ShallowOption
+type UseMutationOptionsBase<TData, TError, TVariables, TOnMutateResult>
+  = MutationObserverOptions<TData, TError, TVariables, TOnMutateResult>
+    & ShallowOption
 
 export type UseMutationOptions<
   TData = unknown,
   TError = DefaultError,
   TVariables = void,
   TOnMutateResult = unknown,
-> =
-  | MaybeRefDeep<
+>
+  = | MaybeRefDeep<
     UseMutationOptionsBase<TData, TError, TVariables, TOnMutateResult>
   >
   | (() => MaybeRefDeep<
@@ -99,8 +99,8 @@ export function useMutation<
 
   const client = queryClient || useQueryClient()
   const options = computed(() => {
-    const resolvedOptions =
-      typeof mutationOptions === 'function'
+    const resolvedOptions
+      = typeof mutationOptions === 'function'
         ? mutationOptions()
         : mutationOptions
     return client.defaultMutationOptions(cloneDeepUnref(resolvedOptions))
@@ -143,8 +143,8 @@ export function useMutation<
     () => state.error,
     (error) => {
       if (
-        error &&
-        shouldThrowError(options.value.throwOnError, [error as TError])
+        error
+        && shouldThrowError(options.value.throwOnError, [error as TError])
       ) {
         throw error
       }

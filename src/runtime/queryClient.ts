@@ -1,11 +1,3 @@
-import { nextTick, ref } from 'vue-demi'
-import { QueryClient as QC } from '@tanstack/query-core'
-import { cloneDeepUnref } from './utils'
-import { QueryCache } from './queryCache'
-import { MutationCache } from './mutationCache'
-import type { UseQueryOptions } from './composables/useQuery'
-import type { Ref } from 'vue-demi'
-import type { MaybeRefDeep, NoUnknown, QueryClientConfig } from './types'
 import type {
   CancelOptions,
   DefaultError,
@@ -33,6 +25,14 @@ import type {
   SetDataOptions,
   Updater,
 } from '@tanstack/query-core'
+import type { Ref } from 'vue-demi'
+import type { UseQueryOptions } from './composables/useQuery'
+import type { MaybeRefDeep, NoUnknown, QueryClientConfig } from './types'
+import { QueryClient as QC } from '@tanstack/query-core'
+import { nextTick, ref } from 'vue-demi'
+import { MutationCache } from './mutationCache'
+import { QueryCache } from './queryCache'
+import { cloneDeepUnref } from './utils'
 
 export class QueryClient extends QC {
   constructor(config: QueryClientConfig = {}) {

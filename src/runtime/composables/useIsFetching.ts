@@ -1,10 +1,10 @@
-import { getCurrentScope, onScopeDispose, ref, watchEffect } from 'vue-demi'
-import { useQueryClient } from './useQueryClient'
-import { cloneDeepUnref } from '../utils'
-import type { Ref } from 'vue-demi'
 import type { QueryFilters as QF } from '@tanstack/query-core'
-import type { MaybeRefDeep } from '../types'
+import type { Ref } from 'vue-demi'
 import type { QueryClient } from '../queryClient'
+import type { MaybeRefDeep } from '../types'
+import { getCurrentScope, onScopeDispose, ref, watchEffect } from 'vue-demi'
+import { cloneDeepUnref } from '../utils'
+import { useQueryClient } from './useQueryClient'
 
 export type QueryFilters = MaybeRefDeep<QF> | (() => MaybeRefDeep<QF>)
 
@@ -25,8 +25,8 @@ export function useIsFetching(
   const isFetching = ref()
 
   const listener = () => {
-    const resolvedFilters =
-      typeof fetchingFilters === 'function'
+    const resolvedFilters
+      = typeof fetchingFilters === 'function'
         ? fetchingFilters()
         : fetchingFilters
     isFetching.value = client.isFetching(cloneDeepUnref(resolvedFilters))

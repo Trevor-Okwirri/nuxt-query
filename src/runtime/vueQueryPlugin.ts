@@ -1,8 +1,8 @@
-import { isVue2 } from 'vue-demi'
+import type { QueryClientConfig } from './types'
 import { isServer } from '@tanstack/query-core'
+import { isVue2 } from 'vue-demi'
 import { QueryClient } from './queryClient'
 import { getClientKey } from './utils'
-import type { QueryClientConfig } from './types'
 
 type ClientPersister = (client: QueryClient) => [() => void, Promise<void>]
 
@@ -29,9 +29,10 @@ export const VueQueryPlugin = {
 
     if ('queryClient' in options && options.queryClient) {
       client = options.queryClient
-    } else {
-      const clientConfig =
-        'queryClientConfig' in options ? options.queryClientConfig : undefined
+    }
+    else {
+      const clientConfig
+        = 'queryClientConfig' in options ? options.queryClientConfig : undefined
       client = new QueryClient(clientConfig)
     }
 
@@ -64,7 +65,8 @@ export const VueQueryPlugin = {
 
     if (app.onUnmount) {
       app.onUnmount(cleanup)
-    } else {
+    }
+    else {
       const originalUnmount = app.unmount
       app.unmount = function vueQueryUnmount() {
         cleanup()
@@ -80,14 +82,15 @@ export const VueQueryPlugin = {
             const provideCache = {}
             Object.defineProperty(this, '_provided', {
               get: () => provideCache,
-              set: (v) => Object.assign(provideCache, v),
+              set: v => Object.assign(provideCache, v),
             })
           }
 
           this._provided[clientKey] = client
         },
       })
-    } else {
+    }
+    else {
       app.provide(clientKey, client)
     }
   },

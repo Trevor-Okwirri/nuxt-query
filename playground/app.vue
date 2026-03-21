@@ -2,8 +2,12 @@
   <div>
     <header>
       <nav>
-        <NuxtLink to="/">Home</NuxtLink>
-        <NuxtLink to="/dashboard">Dashboard</NuxtLink>
+        <NuxtLink to="/">
+          Home
+        </NuxtLink>
+        <NuxtLink to="/dashboard">
+          Dashboard
+        </NuxtLink>
       </nav>
     </header>
 

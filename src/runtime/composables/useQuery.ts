@@ -1,5 +1,3 @@
-import { QueryObserver } from '@tanstack/query-core'
-import { useBaseQuery } from './useBaseQuery'
 import type {
   DefaultError,
   DefinedQueryObserverResult,
@@ -9,7 +7,7 @@ import type {
   QueryKey,
   QueryObserverOptions,
 } from '@tanstack/query-core'
-import type { UseBaseQueryReturnType } from './useBaseQuery'
+import type { QueryClient } from '../queryClient'
 import type {
   DeepUnwrapRef,
   MaybeRef,
@@ -17,7 +15,9 @@ import type {
   MaybeRefOrGetter,
   ShallowOption,
 } from '../types'
-import type { QueryClient } from '../queryClient'
+import type { UseBaseQueryReturnType } from './useBaseQuery'
+import { QueryObserver } from '@tanstack/query-core'
+import { useBaseQuery } from './useBaseQuery'
 
 export type UseQueryOptions<
   TQueryFnData = unknown,
@@ -34,23 +34,22 @@ export type UseQueryOptions<
       TQueryData,
       TQueryKey
     >]: Property extends 'enabled'
-    ?
-    | MaybeRefOrGetter<boolean | undefined>
-    | (() => Enabled<
-      TQueryFnData,
-      TError,
-      TQueryData,
-      DeepUnwrapRef<TQueryKey>
-    >)
-    : MaybeRefDeep<
-      QueryObserverOptions<
+      ? | MaybeRefOrGetter<boolean | undefined>
+      | (() => Enabled<
         TQueryFnData,
         TError,
-        TData,
         TQueryData,
         DeepUnwrapRef<TQueryKey>
-      >[Property]
-    >
+      >)
+      : MaybeRefDeep<
+        QueryObserverOptions<
+          TQueryFnData,
+          TError,
+          TData,
+          TQueryData,
+          DeepUnwrapRef<TQueryKey>
+        >[Property]
+      >
   } & ShallowOption
 >
 
@@ -61,9 +60,9 @@ export type UndefinedInitialQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
 > = UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey> & {
   initialData?:
-  | undefined
-  | InitialDataFunction<NonUndefinedGuard<TQueryFnData>>
-  | NonUndefinedGuard<TQueryFnData>
+    | undefined
+    | InitialDataFunction<NonUndefinedGuard<TQueryFnData>>
+    | NonUndefinedGuard<TQueryFnData>
 }
 
 export type DefinedInitialQueryOptions<
@@ -73,8 +72,8 @@ export type DefinedInitialQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
 > = UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey> & {
   initialData:
-  | NonUndefinedGuard<TQueryFnData>
-  | (() => NonUndefinedGuard<TQueryFnData>)
+    | NonUndefinedGuard<TQueryFnData>
+    | (() => NonUndefinedGuard<TQueryFnData>)
 }
 
 export type UseQueryReturnType<TData, TError> = UseBaseQueryReturnType<

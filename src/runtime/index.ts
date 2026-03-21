@@ -1,38 +1,38 @@
-export * from '@tanstack/query-core'
+export { useInfiniteQuery } from './composables/useInfiniteQuery'
 
+export type {
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryReturnType,
+} from './composables/useInfiniteQuery'
+export { useIsFetching } from './composables/useIsFetching'
+
+export type { QueryFilters } from './composables/useIsFetching'
+export { useMutation } from './composables/useMutation'
+export type { UseMutationOptions, UseMutationReturnType } from './composables/useMutation'
+export { useIsMutating, useMutationState } from './composables/useMutationState'
+export type { MutationFilters, MutationStateOptions } from './composables/useMutationState'
+export { useQueries } from './composables/useQueries'
+export type { UseQueriesOptions, UseQueriesResults } from './composables/useQueries'
+export { useQuery } from './composables/useQuery'
+export type {
+  DefinedInitialQueryOptions,
+  UndefinedInitialQueryOptions,
+  UseQueryDefinedReturnType,
+  UseQueryOptions,
+  UseQueryReturnType,
+} from './composables/useQuery'
 export { useQueryClient } from './composables/useQueryClient'
-export { VueQueryPlugin } from './vueQueryPlugin'
-
-export { QueryClient } from './queryClient'
-export { QueryCache } from './queryCache'
-export { queryOptions } from './queryOptions'
 export { infiniteQueryOptions } from './infiniteQueryOptions'
 export type {
   DefinedInitialDataInfiniteOptions,
   UndefinedInitialDataInfiniteOptions,
 } from './infiniteQueryOptions'
 export { MutationCache } from './mutationCache'
-export { useQuery } from './composables/useQuery'
-export { useQueries } from './composables/useQueries'
-export { useInfiniteQuery } from './composables/useInfiniteQuery'
-export { useMutation } from './composables/useMutation'
-export { useIsFetching } from './composables/useIsFetching'
-export { useIsMutating, useMutationState } from './composables/useMutationState'
-export { VUE_QUERY_CLIENT } from './utils'
 
-export type {
-  UseQueryOptions,
-  UseQueryReturnType,
-  UseQueryDefinedReturnType,
-  UndefinedInitialQueryOptions,
-  DefinedInitialQueryOptions,
-} from './composables/useQuery'
-export type {
-  UseInfiniteQueryOptions,
-  UseInfiniteQueryReturnType,
-} from './composables/useInfiniteQuery'
-export type { UseMutationOptions, UseMutationReturnType } from './composables/useMutation'
-export type { UseQueriesOptions, UseQueriesResults } from './composables/useQueries'
-export type { MutationFilters, MutationStateOptions } from './composables/useMutationState'
-export type { QueryFilters } from './composables/useIsFetching'
+export { QueryCache } from './queryCache'
+export { QueryClient } from './queryClient'
+export { queryOptions } from './queryOptions'
+export { VUE_QUERY_CLIENT } from './utils'
+export { VueQueryPlugin } from './vueQueryPlugin'
 export type { VueQueryPluginOptions } from './vueQueryPlugin'
+export * from '@tanstack/query-core'
