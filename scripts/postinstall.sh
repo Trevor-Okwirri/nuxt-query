@@ -5,4 +5,3 @@ if [ "$CI" = "true" ]; then
 else
   nuxt-module-build build --stub
 fi
-
