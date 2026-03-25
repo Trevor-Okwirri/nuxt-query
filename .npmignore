@@ -1,0 +1,17 @@
+src
+test
+playground
+.nuxt
+node_modules
+*.md
+.editorconfig
+.gitignore
+eslint.config.mjs
+tsconfig.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.github
+.vscode
+.turbo
+.DS_Store
+

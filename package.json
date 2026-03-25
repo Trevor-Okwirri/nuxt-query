@@ -27,10 +27,11 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "scripts"
   ],
   "scripts": {
-    "postinstall": "nuxt-module-build build --stub",
+    "postinstall": "sh scripts/postinstall.sh",
     "prepack": "nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxt dev playground",
     "build": "nuxi prepare && pnpm prepack",
