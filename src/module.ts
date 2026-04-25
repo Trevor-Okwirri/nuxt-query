@@ -1,4 +1,4 @@
-import { addImportsDir, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { addImports, addImportsDir, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 
 export default defineNuxtModule({
   meta: {
@@ -12,6 +12,11 @@ export default defineNuxtModule({
     addPlugin(resolver.resolve('./runtime/plugins/index.ts'))
 
     addImportsDir(resolver.resolve('./runtime/composables'))
+
+    addImports([
+      { name: 'queryOptions', from: resolver.resolve('./runtime/queryOptions') },
+      { name: 'keepPreviousData', from: '@tanstack/query-core' },
+    ])
   },
 })
 
