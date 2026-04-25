@@ -9,6 +9,6 @@
   },
   "dependencies": {
     "@repo/nuxt-query": "workspace:*",
-    "nuxt": "^4.3.0"
+    "nuxt": "catalog:conflicts_conflicts_nuxt_h4_2_2_h4_2_1"
   }
 }

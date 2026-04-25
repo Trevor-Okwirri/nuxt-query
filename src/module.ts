@@ -14,3 +14,5 @@ export default defineNuxtModule({
     addImportsDir(resolver.resolve('./runtime/composables'))
   },
 })
+
+export * from './runtime/index'

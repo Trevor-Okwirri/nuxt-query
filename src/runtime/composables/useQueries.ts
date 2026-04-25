@@ -41,9 +41,9 @@ type MAXIMUM_DEPTH = 20
 // Widen the type of the symbol to enable type inference even if skipToken is not immutable.
 type SkipTokenForUseQueries = symbol
 
-type GetUseQueryOptionsForUseQueries<T>
+type GetUseQueryOptionsForUseQueries<T> =
   // Part 1: if UseQueryOptions are already being sent through, then just return T
-  = T extends UseQueryOptions
+  T extends UseQueryOptions
     ? DeepUnwrapRef<T>
     : // Part 2: responsible for applying explicit type parameter to function arguments, if object { queryFnData: TQueryFnData, error: TError, data: TData }
     T extends {
@@ -109,9 +109,9 @@ type GetDefinedOrUndefinedQueryResult<T, TData, TError = unknown> = T extends {
         : QueryObserverResult<TData, TError>
   : QueryObserverResult<TData, TError>
 
-type GetUseQueryResult<T>
+type GetUseQueryResult<T> =
   // Part 1: if using UseQueryOptions then the types are already set
-  = T extends UseQueryOptions<
+  T extends UseQueryOptions<
     infer TQueryFnData,
     infer TError,
     infer TData,
@@ -240,13 +240,13 @@ export function useQueries<
     ...options
   }: ShallowOption & {
     queries:
-    | (() => MaybeRefDeep<UseQueriesOptionsArg<T>>)
-    | MaybeRefDeep<UseQueriesOptionsArg<T>>
-    | MaybeRefDeep<
-      readonly [
-        ...{ [K in keyof T]: GetUseQueryOptionsForUseQueries<T[K]> },
-      ]
-    >
+      | (() => MaybeRefDeep<UseQueriesOptionsArg<T>>)
+      | MaybeRefDeep<UseQueriesOptionsArg<T>>
+      | MaybeRefDeep<
+        readonly [
+          ...{ [K in keyof T]: GetUseQueryOptionsForUseQueries<T[K]> },
+        ]
+      >
     combine?: (result: UseQueriesResults<T>) => TCombinedResult
   },
   queryClient?: QueryClient,
@@ -262,8 +262,8 @@ export function useQueries<
   const client = queryClient || useQueryClient()
 
   const defaultedQueries = computed(() => {
-    const resolvedQueries
-      = typeof queries === 'function'
+    const resolvedQueries =
+      typeof queries === 'function'
         ? (queries as () => MaybeRefDeep<UseQueriesOptionsArg<T>>)()
         : queries
     // Only unref the top level array.

@@ -46,9 +46,9 @@ type UseQueryOptionsGeneric<
   TQueryData,
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
->
-  = | UseQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>
-    | UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>
+> =
+  | UseQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>
+  | UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>
 
 export function useBaseQuery<
   TQueryFnData,
@@ -199,9 +199,9 @@ export function useBaseQuery<
     () => state.error,
     (error) => {
       if (
-        state.isError
-        && !state.isFetching
-        && shouldThrowError(defaultedOptions.value.throwOnError, [
+        state.isError &&
+        !state.isFetching &&
+        shouldThrowError(defaultedOptions.value.throwOnError, [
           error as TError,
           observer.getCurrentQuery(),
         ])

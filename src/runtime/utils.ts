@@ -96,7 +96,7 @@ export function cloneDeepUnref<T>(
   })
 }
 
-function isPlainObject(value: unknown): value is object {
+function isPlainObject(value: unknown): value is Object {
   if (Object.prototype.toString.call(value) !== '[object Object]') {
     return false
   }
@@ -107,4 +107,8 @@ function isPlainObject(value: unknown): value is object {
 
 function isFunction(value: unknown): value is Function {
   return typeof value === 'function'
+}
+
+export function toValueDeep<T>(source: (() => T) | MaybeRefDeep<T>): T {
+  return isFunction(source) ? source() : cloneDeepUnref(source)
 }

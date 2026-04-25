@@ -11,16 +11,18 @@ import type {
 import type { ComputedRef, Ref, UnwrapRef } from 'vue-demi'
 
 type Primitive = string | number | boolean | bigint | symbol | undefined | null
-type UnwrapLeaf
-  = | Primitive
-    | Function
-    | Date
-    | Error
-    | RegExp
-    | Map<any, any>
-    | WeakMap<any, any>
-    | Set<any>
-    | WeakSet<any>
+type UnwrapLeaf =
+  | Primitive
+  | Function
+  | Date
+  | Error
+  | RegExp
+  | Map<any, any>
+  | WeakMap<any, any>
+  | Set<any>
+  | WeakSet<any>
+
+export type MaybeGetter<T> = T | (() => T)
 
 export type MaybeRef<T> = Ref<T> | ComputedRef<T> | T
 
@@ -38,8 +40,8 @@ export type MaybeRefDeep<T> = MaybeRef<
 
 export type NoUnknown<T> = Equal<unknown, T> extends true ? never : T
 
-export type Equal<TTargetA, TTargetB>
-  = (<T>() => T extends TTargetA ? 1 : 2) extends <T>() => T extends TTargetB
+export type Equal<TTargetA, TTargetB> =
+  (<T>() => T extends TTargetA ? 1 : 2) extends <T>() => T extends TTargetB
     ? 1
     : 2
     ? true
@@ -62,11 +64,22 @@ export interface ShallowOption {
   shallow?: boolean
 }
 
+export type MutationOptions<
+  TData = unknown,
+  TError = DefaultError,
+  TVariables = void,
+  TOnMutateResult = unknown,
+> = OmitKeyof<
+  MutationObserverOptions<TData, TError, TVariables, TOnMutateResult>,
+  '_defaulted'
+> &
+ShallowOption
+
 export interface DefaultOptions<TError = DefaultError> {
-  queries?: OmitKeyof<QueryObserverOptions<unknown, TError>, 'queryKey'>
-    & ShallowOption
-  mutations?: MutationObserverOptions<unknown, TError, unknown, unknown>
-    & ShallowOption
+  queries?: OmitKeyof<QueryObserverOptions<unknown, TError>, 'queryKey'> &
+    ShallowOption
+  mutations?: MutationObserverOptions<unknown, TError, unknown, unknown> &
+    ShallowOption
   hydrate?: HydrateOptions['defaultOptions']
   dehydrate?: DehydrateOptions
 }

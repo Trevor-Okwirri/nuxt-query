@@ -1,12 +1,15 @@
 import type { QueryClientConfig } from './types'
-import { isServer } from '@tanstack/query-core'
+import { environmentManager } from '@tanstack/query-core'
+
 import { isVue2 } from 'vue-demi'
+import { setupDevtools } from './devtools/devtools'
 import { QueryClient } from './queryClient'
 import { getClientKey } from './utils'
 
 type ClientPersister = (client: QueryClient) => [() => void, Promise<void>]
 
 interface CommonOptions {
+  enableDevtoolsV6Plugin?: boolean
   queryClientKey?: string
   clientPersister?: ClientPersister
   clientPersisterOnSuccess?: (client: QueryClient) => void
@@ -31,12 +34,12 @@ export const VueQueryPlugin = {
       client = options.queryClient
     }
     else {
-      const clientConfig
-        = 'queryClientConfig' in options ? options.queryClientConfig : undefined
+      const clientConfig =
+        'queryClientConfig' in options ? options.queryClientConfig : undefined
       client = new QueryClient(clientConfig)
     }
 
-    if (!isServer) {
+    if (!environmentManager.isServer()) {
       client.mount()
     }
 
@@ -87,11 +90,23 @@ export const VueQueryPlugin = {
           }
 
           this._provided[clientKey] = client
+
+          if (process.env.NODE_ENV === 'development') {
+            if (this === this.$root && options.enableDevtoolsV6Plugin) {
+              setupDevtools(this, client)
+            }
+          }
         },
       })
     }
     else {
       app.provide(clientKey, client)
+
+      if (process.env.NODE_ENV === 'development') {
+        if (options.enableDevtoolsV6Plugin) {
+          setupDevtools(app, client)
+        }
+      }
     }
   },
 }
