@@ -25,19 +25,19 @@ export type {
   UseQueryOptions,
   UseQueryReturnType,
 } from './composables/useQuery'
+export type { UseQueryOptions as QueryOptions } from './composables/useQuery'
 export { useQueryClient } from './composables/useQueryClient'
 export { infiniteQueryOptions } from './infiniteQueryOptions'
 export type {
   DefinedInitialDataInfiniteOptions,
   UndefinedInitialDataInfiniteOptions,
 } from './infiniteQueryOptions'
-export { MutationCache } from './mutationCache'
 
+export { MutationCache } from './mutationCache'
 export { mutationOptions } from './mutationOptions'
 export { QueryCache } from './queryCache'
 export { QueryClient } from './queryClient'
 export { queryOptions } from './queryOptions'
-export type { UseQueryOptions as QueryOptions } from './composables/useQuery'
 export type { MutationOptions } from './types'
 export { VUE_QUERY_CLIENT } from './utils'
 export { VueQueryPlugin } from './vueQueryPlugin'
