@@ -1,0 +1,38 @@
+import type { CancelOptions, DefaultError, DefaultOptions, EnsureQueryDataOptions, FetchInfiniteQueryOptions, FetchQueryOptions, InferDataFromTag, InferErrorFromTag, InfiniteData, InvalidateOptions, InvalidateQueryFilters, MutationFilters, MutationKey, MutationObserverOptions, NoInfer, OmitKeyof, QueryFilters, QueryKey, QueryObserverOptions, QueryState, RefetchOptions, RefetchQueryFilters, ResetOptions, SetDataOptions, Updater } from '@tanstack/query-core';
+import type { Ref } from 'vue-demi';
+import type { UseQueryOptions } from './composables/useQuery.js';
+import type { MaybeRefDeep, NoUnknown, QueryClientConfig } from './types.js';
+import { QueryClient as QC } from '@tanstack/query-core';
+export declare class QueryClient extends QC {
+    constructor(config?: QueryClientConfig);
+    isRestoring?: Ref<boolean>;
+    isFetching(filters?: MaybeRefDeep<QueryFilters>): number;
+    isMutating(filters?: MaybeRefDeep<MutationFilters>): number;
+    getQueryData<TData = unknown, TTaggedQueryKey extends QueryKey = QueryKey>(queryKey: TTaggedQueryKey): InferDataFromTag<TData, TTaggedQueryKey> | undefined;
+    getQueryData<TData = unknown>(queryKey: MaybeRefDeep<QueryKey>): TData | undefined;
+    ensureQueryData<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: EnsureQueryDataOptions<TQueryFnData, TError, TData, TQueryKey>): Promise<TData>;
+    ensureQueryData<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: MaybeRefDeep<EnsureQueryDataOptions<TQueryFnData, TError, TData, TQueryKey>>): Promise<TData>;
+    getQueriesData<TData = unknown>(filters: MaybeRefDeep<QueryFilters>): Array<[QueryKey, TData | undefined]>;
+    setQueryData<TQueryFnData = unknown, TTaggedQueryKey extends QueryKey = QueryKey, TInferredQueryFnData = InferDataFromTag<TQueryFnData, TTaggedQueryKey>>(queryKey: TTaggedQueryKey, updater: Updater<NoInfer<TInferredQueryFnData> | undefined, NoInfer<TInferredQueryFnData> | undefined>, options?: MaybeRefDeep<SetDataOptions>): NoInfer<TInferredQueryFnData> | undefined;
+    setQueryData<TQueryFnData, TData = NoUnknown<TQueryFnData>>(queryKey: MaybeRefDeep<QueryKey>, updater: Updater<NoInfer<TData> | undefined, NoInfer<TData> | undefined>, options?: MaybeRefDeep<SetDataOptions>): NoInfer<TData> | undefined;
+    setQueriesData<TData>(filters: MaybeRefDeep<QueryFilters>, updater: Updater<TData | undefined, TData | undefined>, options?: MaybeRefDeep<SetDataOptions>): Array<[QueryKey, TData | undefined]>;
+    getQueryState<TData = unknown, TError = DefaultError>(queryKey: MaybeRefDeep<QueryKey>): QueryState<TData, TError> | undefined;
+    removeQueries<TQueryFnData = unknown, TError = DefaultError, TTaggedQueryKey extends QueryKey = QueryKey, TInferredQueryFnData = InferDataFromTag<TQueryFnData, TTaggedQueryKey>, TInferredError = InferErrorFromTag<TError, TTaggedQueryKey>>(filters?: QueryFilters<TTaggedQueryKey>): void;
+    resetQueries<TQueryFnData = unknown, TError = DefaultError, TTaggedQueryKey extends QueryKey = QueryKey, TInferredQueryFnData = InferDataFromTag<TQueryFnData, TTaggedQueryKey>, TInferredError = InferErrorFromTag<TError, TTaggedQueryKey>>(filters?: QueryFilters<TTaggedQueryKey>, options?: MaybeRefDeep<ResetOptions>): Promise<void>;
+    cancelQueries<TQueryFnData = unknown, TError = DefaultError, TTaggedQueryKey extends QueryKey = QueryKey, TInferredQueryFnData = InferDataFromTag<TQueryFnData, TTaggedQueryKey>, TInferredError = InferErrorFromTag<TError, TTaggedQueryKey>>(filters?: QueryFilters<TTaggedQueryKey>, options?: MaybeRefDeep<CancelOptions>): Promise<void>;
+    invalidateQueries<TQueryFnData = unknown, TError = DefaultError, TTaggedQueryKey extends QueryKey = QueryKey, TInferredQueryFnData = InferDataFromTag<TQueryFnData, TTaggedQueryKey>, TInferredError = InferErrorFromTag<TError, TTaggedQueryKey>>(filters?: InvalidateQueryFilters<TTaggedQueryKey>, options?: MaybeRefDeep<InvalidateOptions>): Promise<void>;
+    refetchQueries<TQueryFnData = unknown, TError = DefaultError, TTaggedQueryKey extends QueryKey = QueryKey, TInferredQueryFnData = InferDataFromTag<TQueryFnData, TTaggedQueryKey>, TInferredError = InferErrorFromTag<TError, TTaggedQueryKey>>(filters?: RefetchQueryFilters<TTaggedQueryKey>, options?: MaybeRefDeep<RefetchOptions>): Promise<void>;
+    fetchQuery<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey, TPageParam = never>(options: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>): Promise<TData>;
+    fetchQuery<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey, TPageParam = never>(options: MaybeRefDeep<FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>>): Promise<TData>;
+    prefetchQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>): Promise<void>;
+    prefetchQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: MaybeRefDeep<FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>>): Promise<void>;
+    fetchInfiniteQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey, TPageParam = unknown>(options: FetchInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>): Promise<InfiniteData<TData, TPageParam>>;
+    fetchInfiniteQuery<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey, TPageParam = unknown>(options: MaybeRefDeep<FetchInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>>): Promise<InfiniteData<TData, TPageParam>>;
+    prefetchInfiniteQuery<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey, TPageParam = unknown>(options: FetchInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>): Promise<void>;
+    prefetchInfiniteQuery<TQueryFnData, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey, TPageParam = unknown>(options: MaybeRefDeep<FetchInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>>): Promise<void>;
+    setDefaultOptions(options: MaybeRefDeep<DefaultOptions>): void;
+    setQueryDefaults<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryData = TQueryFnData>(queryKey: MaybeRefDeep<QueryKey>, options: MaybeRefDeep<Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryData>, 'queryKey'>>): void;
+    getQueryDefaults(queryKey: MaybeRefDeep<QueryKey>): OmitKeyof<QueryObserverOptions<any, any, any, any, any>, 'queryKey'>;
+    setMutationDefaults<TData = unknown, TError = DefaultError, TVariables = void, TOnMutateResult = unknown>(mutationKey: MaybeRefDeep<MutationKey>, options: MaybeRefDeep<MutationObserverOptions<TData, TError, TVariables, TOnMutateResult>>): void;
+    getMutationDefaults(mutationKey: MaybeRefDeep<MutationKey>): MutationObserverOptions<any, any, any, any>;
+}

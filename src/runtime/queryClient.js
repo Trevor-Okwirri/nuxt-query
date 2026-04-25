@@ -1,0 +1,111 @@
+import { QueryClient as QC } from "@tanstack/query-core";
+import { nextTick, ref } from "vue-demi";
+import { MutationCache } from "./mutationCache.js";
+import { QueryCache } from "./queryCache.js";
+import { cloneDeepUnref } from "./utils.js";
+export class QueryClient extends QC {
+  constructor(config = {}) {
+    const vueQueryConfig = {
+      defaultOptions: config.defaultOptions,
+      queryCache: config.queryCache || new QueryCache(),
+      mutationCache: config.mutationCache || new MutationCache()
+    };
+    super(vueQueryConfig);
+  }
+  isRestoring = ref(false);
+  isFetching(filters = {}) {
+    return super.isFetching(cloneDeepUnref(filters));
+  }
+  isMutating(filters = {}) {
+    return super.isMutating(cloneDeepUnref(filters));
+  }
+  getQueryData(queryKey) {
+    return super.getQueryData(cloneDeepUnref(queryKey));
+  }
+  ensureQueryData(options) {
+    return super.ensureQueryData(cloneDeepUnref(options));
+  }
+  getQueriesData(filters) {
+    return super.getQueriesData(cloneDeepUnref(filters));
+  }
+  setQueryData(queryKey, updater, options = {}) {
+    return super.setQueryData(
+      cloneDeepUnref(queryKey),
+      updater,
+      cloneDeepUnref(options)
+    );
+  }
+  setQueriesData(filters, updater, options = {}) {
+    return super.setQueriesData(
+      cloneDeepUnref(filters),
+      updater,
+      cloneDeepUnref(options)
+    );
+  }
+  getQueryState(queryKey) {
+    return super.getQueryState(cloneDeepUnref(queryKey));
+  }
+  removeQueries(filters = {}) {
+    return super.removeQueries(cloneDeepUnref(filters));
+  }
+  resetQueries(filters = {}, options = {}) {
+    return super.resetQueries(cloneDeepUnref(filters), cloneDeepUnref(options));
+  }
+  cancelQueries(filters = {}, options = {}) {
+    return super.cancelQueries(cloneDeepUnref(filters), cloneDeepUnref(options));
+  }
+  invalidateQueries(filters = {}, options = {}) {
+    const filtersCloned = cloneDeepUnref(filters);
+    const optionsCloned = cloneDeepUnref(options);
+    super.invalidateQueries(
+      { ...filtersCloned, refetchType: "none" },
+      optionsCloned
+    );
+    if (filtersCloned.refetchType === "none") {
+      return Promise.resolve();
+    }
+    const refetchFilters = {
+      ...filtersCloned,
+      type: filtersCloned.refetchType ?? filtersCloned.type ?? "active"
+    };
+    return nextTick().then(() => {
+      return super.refetchQueries(refetchFilters, optionsCloned);
+    });
+  }
+  refetchQueries(filters = {}, options = {}) {
+    return super.refetchQueries(
+      cloneDeepUnref(filters),
+      cloneDeepUnref(options)
+    );
+  }
+  fetchQuery(options) {
+    return super.fetchQuery(cloneDeepUnref(options));
+  }
+  prefetchQuery(options) {
+    return super.prefetchQuery(cloneDeepUnref(options));
+  }
+  fetchInfiniteQuery(options) {
+    return super.fetchInfiniteQuery(cloneDeepUnref(options));
+  }
+  prefetchInfiniteQuery(options) {
+    return super.prefetchInfiniteQuery(cloneDeepUnref(options));
+  }
+  setDefaultOptions(options) {
+    super.setDefaultOptions(cloneDeepUnref(options));
+  }
+  setQueryDefaults(queryKey, options) {
+    super.setQueryDefaults(cloneDeepUnref(queryKey), cloneDeepUnref(options));
+  }
+  getQueryDefaults(queryKey) {
+    return super.getQueryDefaults(cloneDeepUnref(queryKey));
+  }
+  setMutationDefaults(mutationKey, options) {
+    super.setMutationDefaults(
+      cloneDeepUnref(mutationKey),
+      cloneDeepUnref(options)
+    );
+  }
+  getMutationDefaults(mutationKey) {
+    return super.getMutationDefaults(cloneDeepUnref(mutationKey));
+  }
+}
