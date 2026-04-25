@@ -34,7 +34,6 @@
   ],
   "scripts": {
     "check-types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
-    "postinstall": "nuxt-module-build build",
     "prepack": "nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxt dev playground",
     "dev:build": "nuxt build playground",
