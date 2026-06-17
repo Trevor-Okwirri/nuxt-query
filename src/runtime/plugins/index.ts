@@ -11,7 +11,12 @@ export default defineNuxtPlugin((nuxt) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 5000,
+        // 60 seconds: long enough to survive SSR→client hydration without
+        // triggering immediate background refetches, short enough that
+        // dynamic data (orders, products) still refreshes on user navigation.
+        // Long-lived data (translations, locales, nav menus) overrides this
+        // with per-query staleTime: 24 hours.
+        staleTime: 60_000,
       },
     },
   })
