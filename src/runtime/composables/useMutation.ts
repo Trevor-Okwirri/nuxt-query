@@ -147,7 +147,7 @@ export function useMutation<
   return {
     ...resultRefs,
     mutate,
-    mutateAsync: state.mutate,
-    reset: state.reset,
+    mutateAsync: observer.mutate.bind(observer),
+    reset: observer.reset.bind(observer),
   }
 }
