@@ -39,8 +39,8 @@ const { data, isLoading } = useQuery({
       <p>No user data</p>
     </div>
 
-    <NuxtLink to="/">
+    <NuxtLinkLocale to="/">
       Go Home
-    </NuxtLink>
+    </NuxtLinkLocale>
   </div>
 </template>
