@@ -49,6 +49,8 @@
   "dependencies": {
     "@nuxt/kit": "catalog:",
     "@tanstack/query-core": "catalog:",
+    "@tanstack/vue-devtools": "catalog:",
+    "@tanstack/vue-query-devtools": "catalog:",
     "vue-demi": "catalog:"
   },
   "devDependencies": {

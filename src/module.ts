@@ -1,4 +1,4 @@
-import { addImports, addImportsDir, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { addComponent, addImports, addImportsDir, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 
 export default defineNuxtModule({
   meta: {
@@ -6,7 +6,7 @@ export default defineNuxtModule({
     configKey: 'nuxtQuery',
   },
   defaults: {},
-  setup(_options, _nuxt) {
+  setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
     addPlugin(resolver.resolve('./runtime/plugins/index.ts'))
@@ -17,6 +17,13 @@ export default defineNuxtModule({
       { name: 'queryOptions', from: resolver.resolve('./runtime/queryOptions') },
       { name: 'keepPreviousData', from: '@tanstack/query-core' },
     ])
+
+    if (nuxt.options.dev) {
+      addComponent({
+        name: 'QueryDevtools',
+        filePath: resolver.resolve('./runtime/components/QueryDevtools.vue'),
+      })
+    }
   },
 })
 
