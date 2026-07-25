@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ['@repo/nuxt-query'],
+  modules: ['../src/module'],
   devtools: { enabled: true },
   compatibilityDate: 'latest',
 })

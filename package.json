@@ -2,7 +2,7 @@
   "name": "@repo/nuxt-query",
   "type": "module",
   "version": "1.0.0",
-  "description": "My new Nuxt module",
+  "description": "Nuxt module wrapping TanStack Query with SSR state transfer via useState",
   "license": "MIT",
   "exports": {
     ".": {
@@ -48,13 +48,17 @@
   },
   "dependencies": {
     "@nuxt/kit": "catalog:",
+    "@tanstack/match-sorter-utils": "catalog:",
     "@tanstack/query-core": "catalog:",
     "@tanstack/vue-devtools": "catalog:",
     "@tanstack/vue-query-devtools": "catalog:",
+    "@vue/devtools-api": "catalog:",
     "vue-demi": "catalog:"
   },
   "devDependencies": {
+    "@nuxt/a11y": "catalog:",
     "@nuxt/devtools": "catalog:",
+    "@nuxt/hints": "catalog:",
     "@nuxt/module-builder": "catalog:",
     "@nuxt/schema": "catalog:",
     "@nuxt/test-utils": "catalog:",
