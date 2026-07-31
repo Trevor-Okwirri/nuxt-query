@@ -14,6 +14,7 @@ import {
   computed,
   getCurrentScope,
   onScopeDispose,
+  onServerPrefetch,
   reactive,
   readonly,
   shallowReactive,
@@ -192,6 +193,21 @@ export function useBaseQuery<
         stopWatch = watch(defaultedOptions, run)
       },
     )
+  }
+
+  // Auto-await this query during SSR, same as stock @tanstack/vue-query -
+  // without this, a query is only fetched+cached before app:rendered if
+  // something explicitly calls suspense() itself, which most call sites
+  // never do. That leaves the query still pending at dehydration time, and
+  // dehydrate() only carries over 'success'-status queries - so it silently
+  // vanishes from the SSR payload and the client refetches it from scratch.
+  if (import.meta.server && getCurrentScope()) {
+    onServerPrefetch(() => {
+      if (defaultedOptions.value.enabled === false) {
+        return
+      }
+      return suspense()
+    })
   }
 
   // Handle error boundary
