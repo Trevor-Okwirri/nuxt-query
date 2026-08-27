@@ -1,7 +1,7 @@
 import type { DehydratedState } from '@tanstack/query-core'
 import type { VueQueryPluginOptions } from '../vueQueryPlugin'
 import { defineNuxtPlugin, useState } from '#imports'
-import { dehydrate, hydrate } from '@tanstack/query-core'
+import { dehydrate, hydrate, keepPreviousData } from '@tanstack/query-core'
 import { QueryClient } from '../queryClient'
 import { VueQueryPlugin } from '../vueQueryPlugin'
 
@@ -17,6 +17,15 @@ export default defineNuxtPlugin((nuxt) => {
         // Long-lived data (translations, locales, nav menus) overrides this
         // with per-query staleTime: 24 hours.
         staleTime: 60_000,
+        // Admins tab-switch constantly; refetching every query on window
+        // focus caused visible dashboard/chart flicker. staleTime already
+        // governs freshness — rely on that instead of focus-triggered refetch.
+        refetchOnWindowFocus: false,
+        // Charts/stats keyed by filters (date range, territory, etc.) would
+        // otherwise flash to their empty state on every key change while the
+        // new key's data is fetched. Keep the previous key's data on screen
+        // until the new one resolves; isFetching still flips for a spinner.
+        placeholderData: keepPreviousData,
       },
     },
   })

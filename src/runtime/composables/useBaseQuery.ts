@@ -12,6 +12,7 @@ import type { UseQueryOptions } from './useQuery'
 import { shouldThrowError } from '@tanstack/query-core'
 import {
   computed,
+  getCurrentInstance,
   getCurrentScope,
   onScopeDispose,
   onServerPrefetch,
@@ -142,7 +143,7 @@ export function useBaseQuery<
 
   onScopeDispose(() => {
     unsubscribe()
-  })
+  }, true)
 
   // fix #5910
   const refetch = (...args: Parameters<(typeof state)['refetch']>) => {
@@ -201,7 +202,7 @@ export function useBaseQuery<
   // never do. That leaves the query still pending at dehydration time, and
   // dehydrate() only carries over 'success'-status queries - so it silently
   // vanishes from the SSR payload and the client refetches it from scratch.
-  if (import.meta.server && getCurrentScope()) {
+  if (import.meta.server && getCurrentScope() && getCurrentInstance()) {
     onServerPrefetch(() => {
       if (defaultedOptions.value.enabled === false) {
         return
