@@ -1,29 +1,17 @@
 import type {
   DefaultError,
-  FetchInfiniteQueryOptions,
-  FetchQueryOptions,
-  GetNextPageParamFunction,
+  DistributiveOmit,
   InfiniteData,
-  InitialPageParam,
-  OmitKeyof,
+  InfiniteQueryExecuteOptions,
   QueryKey,
   SkipToken,
 } from '@tanstack/query-core'
 import type { QueryClient } from '../queryClient'
 import type { MaybeRefDeep, MaybeRefOrGetter } from '../types'
+import { noop } from '@tanstack/query-core'
 import { getCurrentScope, unref, watchEffect } from 'vue-demi'
 import { cloneDeepUnref } from '../utils'
 import { useQueryClient } from './useQueryClient'
-
-type PrefetchInfinitePages<TQueryFnData, TPageParam> =
-  | {
-    pages?: never
-    getNextPageParam?: GetNextPageParamFunction<TPageParam, TQueryFnData>
-  }
-  | {
-    pages: number
-    getNextPageParam: GetNextPageParamFunction<TPageParam, TQueryFnData>
-  }
 
 export type UsePrefetchInfiniteQueryOptions<
   TQueryFnData,
@@ -31,28 +19,21 @@ export type UsePrefetchInfiniteQueryOptions<
   TData,
   TQueryKey extends QueryKey,
   TPageParam,
-> = OmitKeyof<
-  FetchQueryOptions<
-    TQueryFnData,
-    TError,
-    InfiniteData<TData, TPageParam>,
-    TQueryKey,
-    TPageParam
-  >,
-  'queryFn' | 'initialPageParam'
-> &
-InitialPageParam<TPageParam> & {
+> = DistributiveOmit<
+  InfiniteQueryExecuteOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>,
+  'queryFn'
+> & {
   queryFn?: Exclude<
-    FetchQueryOptions<
+    InfiniteQueryExecuteOptions<
       TQueryFnData,
       TError,
-      InfiniteData<TData, TPageParam>,
+      TData,
       TQueryKey,
       TPageParam
     >['queryFn'],
     SkipToken
   >
-} & PrefetchInfinitePages<TQueryFnData, TPageParam>
+}
 
 function isGetter<T>(value: MaybeRefOrGetter<T>): value is () => T {
   return typeof value === 'function'
@@ -61,7 +42,7 @@ function isGetter<T>(value: MaybeRefOrGetter<T>): value is () => T {
 export function usePrefetchInfiniteQuery<
   TQueryFnData = unknown,
   TError = DefaultError,
-  TData = TQueryFnData,
+  TData = InfiniteData<TQueryFnData>,
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
 >(
@@ -90,6 +71,7 @@ export function usePrefetchInfiniteQuery<
 
   watchEffect(() => {
     const resolvedOptions = isGetter(options) ? options() : unref(options)
+
     const clonedOptions: UsePrefetchInfiniteQueryOptions<
       TQueryFnData,
       TError,
@@ -99,15 +81,7 @@ export function usePrefetchInfiniteQuery<
     > = cloneDeepUnref(resolvedOptions)
 
     if (!client.getQueryState(clonedOptions.queryKey)) {
-      void client.prefetchInfiniteQuery(
-        clonedOptions as FetchInfiniteQueryOptions<
-          TQueryFnData,
-          TError,
-          TData,
-          TQueryKey,
-          TPageParam
-        >,
-      )
+      void client.infiniteQuery(clonedOptions).then(noop).catch(noop)
     }
   })
 }

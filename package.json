@@ -50,8 +50,6 @@
     "@nuxt/kit": "catalog:",
     "@tanstack/match-sorter-utils": "catalog:",
     "@tanstack/query-core": "catalog:",
-    "@tanstack/vue-devtools": "catalog:",
-    "@tanstack/vue-query-devtools": "catalog:",
     "@vue/devtools-api": "catalog:",
     "vue-demi": "catalog:"
   },

@@ -1,12 +1,13 @@
 import type {
   DefaultError,
-  FetchQueryOptions,
   OmitKeyof,
+  QueryExecuteOptions,
   QueryKey,
   SkipToken,
 } from '@tanstack/query-core'
 import type { QueryClient } from '../queryClient'
 import type { MaybeRefDeep, MaybeRefOrGetter } from '../types'
+import { noop } from '@tanstack/query-core'
 import { getCurrentScope, unref, watchEffect } from 'vue-demi'
 import { cloneDeepUnref } from '../utils'
 import { useQueryClient } from './useQueryClient'
@@ -15,13 +16,21 @@ export type UsePrefetchQueryOptions<
   TQueryFnData,
   TError,
   TData,
+  TQueryData,
   TQueryKey extends QueryKey,
 > = OmitKeyof<
-  FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+  QueryExecuteOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey, never>,
   'queryFn'
 > & {
   queryFn?: Exclude<
-    FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>['queryFn'],
+    QueryExecuteOptions<
+      TQueryFnData,
+      TError,
+      TData,
+      TQueryData,
+      TQueryKey,
+      never
+    >['queryFn'],
     SkipToken
   >
 }
@@ -34,11 +43,12 @@ export function usePrefetchQuery<
   TQueryFnData = unknown,
   TError = DefaultError,
   TData = TQueryFnData,
+  TQueryData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
 >(
   options: MaybeRefOrGetter<
     MaybeRefDeep<
-      UsePrefetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>
+      UsePrefetchQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>
     >
   >,
   queryClient?: QueryClient,
@@ -59,11 +69,12 @@ export function usePrefetchQuery<
       TQueryFnData,
       TError,
       TData,
+      TQueryData,
       TQueryKey
     > = cloneDeepUnref(resolvedOptions)
 
     if (!client.getQueryState(clonedOptions.queryKey)) {
-      void client.prefetchQuery(clonedOptions)
+      void client.query(clonedOptions).catch(noop)
     }
   })
 }
