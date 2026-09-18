@@ -1,7 +1,7 @@
 {
   "name": "@trevor-okwirri/nuxt-query",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TanStack Query for Nuxt with SSR hydration and auto-imported composables",
   "repository": {
     "type": "git",
