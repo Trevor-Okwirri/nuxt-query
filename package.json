@@ -1,5 +1,5 @@
 {
-  "name": "@trevorokwirri/nuxt-query",
+  "name": "@trevor-okwirri/nuxt-query",
   "type": "module",
   "version": "1.0.0",
   "description": "TanStack Query for Nuxt with SSR hydration and auto-imported composables",

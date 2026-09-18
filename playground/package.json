@@ -1,5 +1,5 @@
 {
-  "name": "@trevorokwirri/nuxt-query-playground",
+  "name": "@trevor-okwirri/nuxt-query-playground",
   "type": "module",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@trevorokwirri/nuxt-query": "workspace:*",
+    "@trevor-okwirri/nuxt-query": "workspace:*",
     "nuxt": "4.5.2"
   }
 }
