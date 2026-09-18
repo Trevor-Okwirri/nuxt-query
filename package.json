@@ -1,19 +1,8 @@
 {
   "name": "@trevor-okwirri/nuxt-query",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "TanStack Query for Nuxt with SSR hydration and auto-imported composables",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Trevor-Okwirri/nuxt-query.git"
-  },
-  "homepage": "https://github.com/Trevor-Okwirri/nuxt-query#readme",
-  "bugs": {
-    "url": "https://github.com/Trevor-Okwirri/nuxt-query/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "keywords": [
     "nuxt",
     "nuxt-module",
@@ -54,15 +43,13 @@
   ],
   "scripts": {
     "check-types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
-    "postinstall": "nuxt-module-build build --stub && nuxt-module-build prepare",
-    "prepare": "husky",
     "prepack": "nuxt-module-build build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev": "npm run dev:prepare && nuxt dev playground",
     "dev:build": "nuxt build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
-    "release": "semantic-release",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
@@ -77,8 +64,6 @@
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.2",
-    "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
     "@nuxt/a11y": "1.0.0-alpha.1",
     "@nuxt/devtools": "4.0.0-beta.1",
@@ -86,20 +71,12 @@
     "@nuxt/module-builder": "^1.0.3",
     "@nuxt/schema": "^4.5.2",
     "@nuxt/test-utils": "^4.3.2",
-    "@semantic-release/changelog": "^7.0.0",
-    "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/exec": "^7.1.0",
-    "@semantic-release/git": "^11.0.1",
-    "@semantic-release/github": "^12.0.9",
-    "@semantic-release/npm": "^13.1.5",
-    "@semantic-release/release-notes-generator": "^14.1.1",
     "@types/node": "^26.6.1",
+    "changelogen": "^0.6.2",
     "eslint": "^10.10.0",
     "eslint-plugin-vue": "^10.11.0",
-    "husky": "^9.1.7",
     "nuxt": "4.5.2",
     "prettier": "^3.9.8",
-    "semantic-release": "^25.0.9",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.1",
