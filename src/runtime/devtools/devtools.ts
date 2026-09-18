@@ -1,5 +1,4 @@
 import type { Query, QueryCacheNotifyEvent } from '@tanstack/query-core'
-import type { CustomInspectorNode } from '@vue/devtools-api'
 import type { QueryClient } from '../queryClient'
 import { rankItem } from '@tanstack/match-sorter-utils'
 import { onlineManager } from '@tanstack/query-core'
@@ -8,6 +7,16 @@ import { getQueryStateLabel, getQueryStatusBg, getQueryStatusFg, sortFns } from 
 
 const pluginId = 'vue-query'
 const pluginName = 'Vue Query'
+
+type CustomInspectorNode = {
+  id: string
+  label: string
+  tags: Array<{
+    label: string
+    textColor: number
+    backgroundColor: number
+  }>
+}
 
 export function setupDevtools(app: any, queryClient: QueryClient) {
   setupDevtoolsPlugin(
