@@ -2,12 +2,9 @@
   <div>
     <header>
       <nav>
-        <NuxtLinkLocale to="/">
+        <NuxtLink to="/">
           Home
-        </NuxtLinkLocale>
-        <NuxtLinkLocale to="/dashboard">
-          Dashboard
-        </NuxtLinkLocale>
+        </NuxtLink>
       </nav>
     </header>
 

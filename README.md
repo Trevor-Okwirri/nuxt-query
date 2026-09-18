@@ -1,82 +1,82 @@
-<!--
-Get your module up and running quickly.
+# @trevorokwirri/nuxt-query
 
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: @Trevor-Okwirri/nuxt-query
-- Description: My new Nuxt module
--->
+TanStack Query for Nuxt with SSR hydration, a Nuxt-managed query client, and
+auto-imported query composables.
 
-# My Module
-
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
-
-My new Nuxt module for doing amazing things.
-
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
-
-## Features
-
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
-
-## Quick Setup
-
-Install the module to your Nuxt application with one command:
+## Installation
 
 ```bash
-npx nuxt module add my-module
+pnpm add @trevorokwirri/nuxt-query
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+Add the module to `nuxt.config.ts`:
 
-## Contribution
+```ts
+export default defineNuxtConfig({
+  modules: ['@trevorokwirri/nuxt-query'],
+})
+```
 
-<details>
-  <summary>Local development</summary>
+The module creates one query client per Nuxt app, transfers prefetched query
+state from the server to the browser, and auto-imports the query composables.
 
-  ```bash
-  # Install dependencies
-  npm install
+## Usage
 
-  # Generate type stubs
-  npm run dev:prepare
+```vue
+<script setup lang="ts">
+const { data, status } = useQuery({
+  queryKey: ['todos'],
+  queryFn: () => $fetch('/api/todos'),
+})
+</script>
 
-  # Develop with the playground
-  npm run dev
+<template>
+  <p v-if="status === 'pending'">Loading...</p>
+  <pre v-else>{{ data }}</pre>
+</template>
+```
 
-  # Build the playground
-  npm run dev:build
+The following APIs are auto-imported:
 
-  # Run ESLint
-  npm run lint
+- `useQuery`
+- `useInfiniteQuery`
+- `useQueries`
+- `useMutation`
+- `useQueryClient`
+- `usePrefetchQuery`
+- `usePrefetchInfiniteQuery`
+- `useIsFetching`
+- `useIsMutating`
+- `useMutationState`
+- `queryOptions`
+- `infiniteQueryOptions`
+- `mutationOptions`
+- `keepPreviousData`
 
-  # Run Vitest
-  npm run test
-  npm run test:watch
+The module also exports the query client, cache classes, composables, and
+TanStack Query core types for explicit imports when needed.
 
-  # Release new version
-  npm run release
-  ```
+## SSR
 
-</details>
+Queries used during server rendering are dehydrated into Nuxt state and
+hydrated into the browser's query client. Query functions should therefore be
+safe to execute on the server and should use absolute URLs or server-compatible
+fetching when required by the application.
 
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-module
+## Local development
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/my-module
+```bash
+pnpm install
+pnpm dev
+pnpm test
+pnpm check-types
+pnpm prepack
+```
 
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-module
+The `playground` directory is a small Nuxt application used to exercise the
+module locally. It is part of this repository only and is not included in the
+published package.
 
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt
-[nuxt-href]: https://nuxt.com
+## License
+
+MIT
