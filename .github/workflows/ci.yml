@@ -34,6 +34,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Prepare Nuxt types
+        run: pnpm dev:prepare
+
       - name: Check types
         run: pnpm check-types
 
