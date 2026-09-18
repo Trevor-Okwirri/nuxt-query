@@ -42,3 +42,9 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      - name: Build package
+        run: pnpm prepack
+
+      - name: Verify package contents
+        run: npm pack --dry-run
