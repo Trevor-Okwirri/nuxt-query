@@ -3,13 +3,17 @@ name: ci
 on:
   push:
     branches:
+      - dev
       - main
   pull_request:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
-  lint:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,33 +21,27 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
 
-      - run: npm i -g --force corepack@latest && corepack enable
+      - run: corepack enable
 
       - name: Install dependencies
-        run: npx nypm@latest i
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm format:check
 
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
 
-  test:
-    runs-on: ubuntu-latest
+      - name: Prepare Nuxt types
+        run: pnpm dev:prepare
 
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 20
-
-      - run: npm i -g --force corepack@latest && corepack enable
-
-      - name: Install dependencies
-        run: npx nypm@latest i
-
-      - name: Playground prepare
-        run: npm run dev:prepare
+      - name: Check types
+        run: pnpm check-types
 
       - name: Test
-        run: npm run test
+        run: pnpm test
+
+      - name: Build package
+        run: pnpm prepack

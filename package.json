@@ -15,6 +15,7 @@
   "engines": {
     "node": ">=18"
   },
+  "packageManager": "pnpm@10.28.1",
   "exports": {
     ".": {
       "types": "./dist/types.d.mts",
@@ -58,29 +59,29 @@
   },
   "dependencies": {
     "@nuxt/kit": "^4.5.2",
-    "@tanstack/match-sorter-utils": "^8.19.4",
+    "@tanstack/match-sorter-utils": "^9.1.2",
     "@tanstack/query-core": "^5.103.1",
-    "@vue/devtools-api": "^6.6.4",
+    "@vue/devtools-api": "^8.2.1",
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.5",
+    "@eslint/js": "^10.0.1",
     "@nuxt/a11y": "1.0.0-alpha.1",
-    "@nuxt/devtools": "^3.4.2",
+    "@nuxt/devtools": "4.0.0-beta.1",
     "@nuxt/hints": "^1.1.4",
     "@nuxt/module-builder": "^1.0.3",
     "@nuxt/schema": "^4.5.2",
     "@nuxt/test-utils": "^4.3.2",
-    "@types/node": "^25.9.7",
+    "@types/node": "^26.6.1",
     "changelogen": "^0.6.2",
-    "eslint": "^9.39.5",
+    "eslint": "^10.10.0",
     "eslint-plugin-vue": "^10.11.0",
     "nuxt": "4.5.2",
     "prettier": "^3.9.8",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.70.0",
-    "vitest": "^4.1.11",
-    "vue": "^3.5.33",
+    "vitest": "^5.0.1",
+    "vue": "^3.5.43",
     "vue-tsc": "^3.3.11"
   }
 }
