@@ -9,7 +9,7 @@ export default defineNuxtModule({
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
 
-    addPlugin(resolver.resolve('./runtime/plugins/index.ts'))
+    addPlugin(resolver.resolve('./runtime/plugins/index'))
 
     addImportsDir(resolver.resolve('./runtime/composables'))
 
