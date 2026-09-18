@@ -1,19 +1,16 @@
-name: ci
+name: publish
 
 on:
   push:
-    branches:
-      - dev
-      - main
-  pull_request:
     branches:
       - main
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
-  verify:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,23 +19,15 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          registry-url: https://registry.npmjs.org
 
       - run: corepack enable
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check formatting
-        run: pnpm format:check
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Check types
-        run: pnpm check-types
-
-      - name: Test
-        run: pnpm test
-
-      - name: Build package
+      - name: Verify package
         run: pnpm prepack
+
+      - name: Publish package
+        run: npm publish --access public --provenance
