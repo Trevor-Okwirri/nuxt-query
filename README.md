@@ -1,105 +1,82 @@
-<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=be2d8a11-9712-4c1d-9963-580b2d4fb133" />
+<!--
+Get your module up and running quickly.
 
-<div align="center">
-  <img src="./media/header_query.png" alt="TanStack Query" />
-</div>
+Find and replace all on all files (CMD+SHIFT+F):
+- Name: My Module
+- Package name: @Trevor-Okwirri/nuxt-query
+- Description: My new Nuxt module
+-->
 
-<br />
+# My Module
 
-<div align="center">
-<a href="https://www.npmjs.com/package/@tanstack/query-core" target="_parent">
-  <img alt="" src="https://img.shields.io/npm/dm/@tanstack/query-core.svg" alt="npm downloads" />
-</a>
- <a href="https://github.com/TanStack/query/stargazers" target="_parent">
-  <img alt="" src="https://img.shields.io/github/stars/TanStack/query.svg?style=social&label=Star" alt="GitHub stars" />
-</a>
-<a href="https://bundlejs.com/?q=%40tanstack%2Freact-query&config=%7B%22esbuild%22%3A%7B%22external%22%3A%5B%22react%22%2C%22react-dom%22%5D%7D%7D&badge=" target="_parent">
-  <img alt="" src="https://deno.bundlejs.com/?q=@tanstack/react-query&config={%22esbuild%22:{%22external%22:[%22react%22,%22react-dom%22]}}&badge=detailed" alt="Bundle size" />
-</a>
-</div>
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![License][license-src]][license-href]
+[![Nuxt][nuxt-src]][nuxt-href]
 
-<div align="center">
-<a href="#badge">
-    <img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release">
-  </a>
-<a href="https://bestofjs.org/projects/tanstack-query"><img src="https://img.shields.io/endpoint?url=https://bestofjs-serverless.now.sh/api/project-badge?fullName=TanStack%2Fquery%26since=daily" alt="Best of JS" /></a>
-  <a href="https://twitter.com/tan_stack"><img src="https://img.shields.io/twitter/follow/tan_stack.svg?style=social" alt="Follow @TanStack"/></a>
-</div>
+My new Nuxt module for doing amazing things.
 
-<div align="center">
+- [✨ &nbsp;Release Notes](/CHANGELOG.md)
+<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
+<!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
-### [Become a Sponsor!](https://github.com/sponsors/tannerlinsley/)
+## Features
 
-</div>
+<!-- Highlight some of the features your module provide here -->
+- ⛰ &nbsp;Foo
+- 🚠 &nbsp;Bar
+- 🌲 &nbsp;Baz
 
-# TanStack Query
+## Quick Setup
 
-An async state management library built to simplify fetching, caching, synchronizing, and updating server state.
+Install the module to your Nuxt application with one command:
 
-- Protocol‑agnostic fetching (REST, GraphQL, promises, etc.)
-- Caching, refetching, pagination & infinite scroll
-- Mutations, dependent queries & background updates
-- Prefetching, cancellation & React Suspense support
+```bash
+npx nuxt module add my-module
+```
 
-### <a href="https://tanstack.com/query">Read the docs →</b></a>
+That's it! You can now use My Module in your Nuxt app ✨
 
-## Get Involved
+## Contribution
 
-- We welcome issues and pull requests!
-- Participate in [GitHub discussions](https://github.com/TanStack/query/discussions)
-- Chat with the community on [Discord](https://discord.com/invite/WrRKjPJ)
-- See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions
+<details>
+  <summary>Local development</summary>
 
-## Partners
+  ```bash
+  # Install dependencies
+  npm install
 
-<table align="center">
-  <tr>
-    <td>
-      <a href="https://www.coderabbit.ai/?via=tanstack&dub_id=aCcEEdAOqqutX6OS" >
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/coderabbit-dark-CMcuvjEy.svg" height="40" />
-          <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/coderabbit-light-DVMJ2jHi.svg" height="40" />
-          <img src="https://tanstack.com/assets/coderabbit-light-DVMJ2jHi.svg" height="40" alt="CodeRabbit" />
-        </picture>
-      </a>
-    </td>
-    <td>
-      <a href="https://www.cloudflare.com?utm_source=tanstack">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/cloudflare-white-DQDB7UaL.svg" height="60" />
-          <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/cloudflare-black-CPufaW0B.svg" height="60" />
-          <img src="https://tanstack.com/assets/cloudflare-black-CPufaW0B.svg" height="60" alt="Cloudflare" />
-        </picture>
-      </a>
-    </td>
-  </tr>
-</table>
+  # Generate type stubs
+  npm run dev:prepare
 
-<div align="center">
-<img src="./media/partner_logo.svg" alt="Query & you?" height="65">
-<p>
-We're looking for TanStack Query Partners to join our mission! Partner with us to push the boundaries of TanStack Query and build amazing things together.
-</p>
-<a href="mailto:partners@tanstack.com?subject=TanStack Query Partnership"><b>LET'S CHAT</b></a>
-</div>
+  # Develop with the playground
+  npm run dev
 
-</div>
+  # Build the playground
+  npm run dev:build
 
-## Explore the TanStack Ecosystem
+  # Run ESLint
+  npm run lint
 
-- <a href="https://github.com/tanstack/config"><b>TanStack Config</b></a> – Tooling for JS/TS packages
-- <a href="https://github.com/tanstack/db"><b>TanStack DB</b></a> – Reactive sync client store
-- <a href="https://github.com/tanstack/devtools"><b>TanStack DevTools</b></a> – Unified devtools panel
-- <a href="https://github.com/tanstack/form"><b>TanStack Form</b></a> – Type‑safe form state
-- <a href="https://github.com/tanstack/pacer"><b>TanStack Pacer</b></a> – Debouncing, throttling, batching <br/>
-- <a href="https://github.com/tanstack/query"><b>TanStack Query</b></a> – Async state & caching
-- <a href="https://github.com/tanstack/ranger"><b>TanStack Ranger</b></a> – Range & slider primitives
-- <a href="https://github.com/tanstack/router"><b>TanStack Router</b></a> – Type‑safe routing, caching & URL state
-- <a href="https://github.com/tanstack/router"><b>TanStack Start</b></a> – Full‑stack SSR & streaming
-- <a href="https://github.com/tanstack/store"><b>TanStack Store</b></a> – Reactive data store
-- <a href="https://github.com/tanstack/table"><b>TanStack Table</b></a> – Headless datagrids
-- <a href="https://github.com/tanstack/virtual"><b>TanStack Virtual</b></a> – Virtualized rendering
+  # Run Vitest
+  npm run test
+  npm run test:watch
 
-… and more at <a href="https://tanstack.com"><b>TanStack.com »</b></a>
+  # Release new version
+  npm run release
+  ```
 
-<!-- Use the force, Luke -->
+</details>
+
+<!-- Badges -->
+[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-version-href]: https://npmjs.com/package/my-module
+
+[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-downloads-href]: https://npm.chart.dev/my-module
+
+[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
+[license-href]: https://npmjs.com/package/my-module
+
+[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt
+[nuxt-href]: https://nuxt.com

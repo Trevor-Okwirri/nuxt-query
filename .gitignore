@@ -1,51 +1,56 @@
-
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-# dependencies
+# Dependencies
 node_modules
-package-lock.json
-yarn.lock
 
-# builds
-build
-coverage
-dist
-dist-ts
+# Logs
+*.log*
 
-# misc
-.DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.next
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.history
-size-plugin.json
-stats-hydration.json
-stats.json
-stats.html
-.vscode/settings.json
-.vscode/mcp.json
-.cursor/rules
-.github/instructions/nx.instructions.md
-
-*.log
-*.tsbuildinfo
-.angular
+# Temp directories
+.temp
+.tmp
 .cache
-.idea
-.nx/cache
-.nx/workspace-data
-.pnpm-store
-.svelte-kit
-.tsup
-.vinxi
-temp
 
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+# Yarn
+**/.yarn/cache
+**/.yarn/*state*
+
+# Generated dirs
+dist
+
+# Nuxt
+.nuxt
+.output
+.data
+.vercel_build_output
+.build-*
+.netlify
+
+# Env
+.env
+
+# Testing
+reports
+coverage
+*.lcov
+.nyc_output
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Intellij idea
+*.iml
+.idea
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

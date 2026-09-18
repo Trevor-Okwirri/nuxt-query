@@ -1,0 +1,14 @@
+{
+  "name": "@repo/nuxt-query-playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@repo/nuxt-query": "workspace:*",
+    "nuxt": "catalog:conflicts_conflicts_nuxt_h4_2_2_h4_2_1"
+  }
+}
