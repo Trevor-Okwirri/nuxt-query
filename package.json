@@ -1,8 +1,19 @@
 {
   "name": "@trevor-okwirri/nuxt-query",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "TanStack Query for Nuxt with SSR hydration and auto-imported composables",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trevor-Okwirri/nuxt-query.git"
+  },
+  "homepage": "https://github.com/Trevor-Okwirri/nuxt-query#readme",
+  "bugs": {
+    "url": "https://github.com/Trevor-Okwirri/nuxt-query/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "nuxt",
     "nuxt-module",
