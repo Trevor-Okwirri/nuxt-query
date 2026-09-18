@@ -40,9 +40,6 @@
   "files": [
     "dist"
   ],
-  "workspaces": [
-    "playground"
-  ],
   "scripts": {
     "check-types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "postinstall": "nuxt-module-build build --stub && nuxt-module-build prepare",
@@ -58,26 +55,26 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@nuxt/kit": "^4.4.8",
+    "@nuxt/kit": "^4.5.2",
     "@tanstack/match-sorter-utils": "^8.19.4",
-    "@tanstack/query-core": "^5.102.8",
+    "@tanstack/query-core": "^5.103.1",
     "@vue/devtools-api": "^6.6.4",
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
     "@nuxt/a11y": "1.0.0-alpha.1",
-    "@nuxt/devtools": "^3.2.4",
+    "@nuxt/devtools": "^3.4.2",
     "@nuxt/hints": "^1.1.4",
-    "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.4.8",
-    "@nuxt/test-utils": "^4.0.2",
-    "@types/node": "^25.6.0",
+    "@nuxt/module-builder": "^1.0.3",
+    "@nuxt/schema": "^4.5.2",
+    "@nuxt/test-utils": "^4.3.2",
+    "@types/node": "^25.9.7",
     "changelogen": "^0.6.2",
-    "eslint": "^9.39.1",
-    "nuxt": "4.4.8",
+    "eslint": "^9.39.5",
+    "nuxt": "4.5.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.5",
+    "vitest": "^4.1.11",
     "vue": "^3.5.33",
-    "vue-tsc": "^3.2.4"
+    "vue-tsc": "^3.3.11"
   }
 }

@@ -1,3 +1,4 @@
+import { useNuxtApp } from '#app'
 import type { QueryClient } from './queryClient'
 
 export function getQueryClient(): QueryClient {
