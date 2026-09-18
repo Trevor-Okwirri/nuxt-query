@@ -2,7 +2,7 @@ import { addImports, addImportsDir, addPlugin, createResolver, defineNuxtModule 
 
 export default defineNuxtModule({
   meta: {
-    name: '@trevorokwirri/nuxt-query',
+    name: '@trevor-okwirri/nuxt-query',
     configKey: 'nuxtQuery',
   },
   defaults: {},

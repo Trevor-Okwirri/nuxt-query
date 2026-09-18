@@ -1,4 +1,4 @@
-# @trevorokwirri/nuxt-query
+# @trevor-okwirri/nuxt-query
 
 TanStack Query for Nuxt with SSR hydration, a Nuxt-managed query client, and
 auto-imported query composables.
@@ -6,14 +6,14 @@ auto-imported query composables.
 ## Installation
 
 ```bash
-pnpm add @trevorokwirri/nuxt-query
+pnpm add @trevor-okwirri/nuxt-query
 ```
 
 Add the module to `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-  modules: ['@trevorokwirri/nuxt-query'],
+  modules: ['@trevor-okwirri/nuxt-query'],
 })
 ```
 

@@ -1,10 +1,6 @@
 name: ci
 
 on:
-  push:
-    branches:
-      - dev
-      - main
   pull_request:
     branches:
       - main
@@ -45,3 +41,6 @@ jobs:
 
       - name: Build package
         run: pnpm prepack
+
+      - name: Verify package contents
+        run: npm pack --dry-run
