@@ -59,9 +59,17 @@ jobs:
       - name: Verify package contents
         run: npm pack --dry-run
 
-      - name: Release
+      - name: Check version is unpublished
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          PACKAGE_NAME: '@trevor-okwirri/nuxt-query'
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
-        run: pnpm release
+        run: |
+          package_version=$(node -p "require('./package.json').version")
+          published_version=$(npm view "$PACKAGE_NAME" version 2>/dev/null || true)
+          if [ "$package_version" = "$published_version" ]; then
+            echo "Version $package_version is already published. Bump package.json before merging."
+            exit 1
+          fi
+
+      - name: Publish package
+        run: npm publish --access public --provenance
