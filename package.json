@@ -62,6 +62,7 @@
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@nuxt/a11y": "1.0.0-alpha.1",
     "@nuxt/devtools": "^3.4.2",
     "@nuxt/hints": "^1.1.4",
@@ -71,8 +72,10 @@
     "@types/node": "^25.9.7",
     "changelogen": "^0.6.2",
     "eslint": "^9.39.5",
+    "eslint-plugin-vue": "^10.11.0",
     "nuxt": "4.5.2",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
     "vitest": "^4.1.11",
     "vue": "^3.5.33",
     "vue-tsc": "^3.3.11"
