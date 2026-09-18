@@ -1,9 +1,4 @@
-import type {
-  DefaultError,
-  Query,
-  QueryFilters,
-  WithRequired,
-} from '@tanstack/query-core'
+import type { DefaultError, Query, QueryFilters, WithRequired } from '@tanstack/query-core'
 import type { MaybeRefDeep } from './types'
 import { QueryCache as QC } from '@tanstack/query-core'
 import { cloneDeepUnref } from './utils'

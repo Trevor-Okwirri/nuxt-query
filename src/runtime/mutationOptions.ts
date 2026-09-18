@@ -7,14 +7,8 @@ export function mutationOptions<
   TVariables = void,
   TOnMutateResult = unknown,
 >(
-  options: WithRequired<
-    MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-    'mutationKey'
-  >,
-): WithRequired<
-  MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-  'mutationKey'
->
+  options: WithRequired<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>,
+): WithRequired<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>
 export function mutationOptions<
   TData = unknown,
   TError = DefaultError,
@@ -25,38 +19,23 @@ export function mutationOptions<
     MutationOptions<TData, TError, TVariables, TOnMutateResult>,
     'mutationKey'
   >,
-): () => WithRequired<
-  MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-  'mutationKey'
->
+): () => WithRequired<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>
 export function mutationOptions<
   TData = unknown,
   TError = DefaultError,
   TVariables = void,
   TOnMutateResult = unknown,
 >(
-  options: Omit<
-    MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-    'mutationKey'
-  >,
-): Omit<
-  MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-  'mutationKey'
->
+  options: Omit<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>,
+): Omit<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>
 export function mutationOptions<
   TData = unknown,
   TError = DefaultError,
   TVariables = void,
   TOnMutateResult = unknown,
 >(
-  options: () => Omit<
-    MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-    'mutationKey'
-  >,
-): () => Omit<
-  MutationOptions<TData, TError, TVariables, TOnMutateResult>,
-  'mutationKey'
->
+  options: () => Omit<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>,
+): () => Omit<MutationOptions<TData, TError, TVariables, TOnMutateResult>, 'mutationKey'>
 export function mutationOptions(options: unknown) {
   return options
 }

@@ -2,9 +2,7 @@
   <div>
     <header>
       <nav>
-        <NuxtLink to="/">
-          Home
-        </NuxtLink>
+        <NuxtLink to="/"> Home </NuxtLink>
       </nav>
     </header>
 

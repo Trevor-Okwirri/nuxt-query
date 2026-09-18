@@ -42,8 +42,7 @@ export default defineNuxtPlugin((nuxt) => {
 
   if (import.meta.client) {
     nuxt.hooks.hook('app:created', () => {
-      if (vueQueryState.value)
-        hydrate(queryClient, vueQueryState.value)
+      if (vueQueryState.value) hydrate(queryClient, vueQueryState.value)
     })
 
     ;(window as any).__TANSTACK_QUERY_CLIENT__ = queryClient

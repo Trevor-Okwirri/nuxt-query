@@ -32,10 +32,8 @@ export const VueQueryPlugin = {
 
     if ('queryClient' in options && options.queryClient) {
       client = options.queryClient
-    }
-    else {
-      const clientConfig =
-        'queryClientConfig' in options ? options.queryClientConfig : undefined
+    } else {
+      const clientConfig = 'queryClientConfig' in options ? options.queryClientConfig : undefined
       client = new QueryClient(clientConfig)
     }
 
@@ -68,8 +66,7 @@ export const VueQueryPlugin = {
 
     if (app.onUnmount) {
       app.onUnmount(cleanup)
-    }
-    else {
+    } else {
       const originalUnmount = app.unmount
       app.unmount = function vueQueryUnmount() {
         cleanup()
@@ -85,7 +82,7 @@ export const VueQueryPlugin = {
             const provideCache = {}
             Object.defineProperty(this, '_provided', {
               get: () => provideCache,
-              set: v => Object.assign(provideCache, v),
+              set: (v) => Object.assign(provideCache, v),
             })
           }
 
@@ -98,8 +95,7 @@ export const VueQueryPlugin = {
           }
         },
       })
-    }
-    else {
+    } else {
       app.provide(clientKey, client)
 
       if (process.env.NODE_ENV === 'development') {

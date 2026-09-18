@@ -23,14 +23,7 @@ export type UsePrefetchQueryOptions<
   'queryFn'
 > & {
   queryFn?: Exclude<
-    QueryExecuteOptions<
-      TQueryFnData,
-      TError,
-      TData,
-      TQueryData,
-      TQueryKey,
-      never
-    >['queryFn'],
+    QueryExecuteOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey, never>['queryFn'],
     SkipToken
   >
 }
@@ -47,9 +40,7 @@ export function usePrefetchQuery<
   TQueryKey extends QueryKey = QueryKey,
 >(
   options: MaybeRefOrGetter<
-    MaybeRefDeep<
-      UsePrefetchQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>
-    >
+    MaybeRefDeep<UsePrefetchQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>>
   >,
   queryClient?: QueryClient,
 ): void {

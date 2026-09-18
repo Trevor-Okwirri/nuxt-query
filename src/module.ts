@@ -14,7 +14,10 @@ export default defineNuxtModule({
     addImportsDir(resolver.resolve('./runtime/composables'))
 
     addImports([
-      { name: 'queryOptions', from: resolver.resolve('./runtime/queryOptions') },
+      {
+        name: 'queryOptions',
+        from: resolver.resolve('./runtime/queryOptions'),
+      },
       { name: 'keepPreviousData', from: '@tanstack/query-core' },
     ])
   },

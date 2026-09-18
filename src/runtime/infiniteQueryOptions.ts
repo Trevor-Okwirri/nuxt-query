@@ -13,13 +13,7 @@ export type UndefinedInitialDataInfiniteOptions<
   TData = InfiniteData<TQueryFnData>,
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
-> = UseInfiniteQueryOptions<
-  TQueryFnData,
-  TError,
-  TData,
-  TQueryKey,
-  TPageParam
-> & {
+> = UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam> & {
   initialData?: undefined
 }
 
@@ -29,13 +23,7 @@ export type DefinedInitialDataInfiniteOptions<
   TData = InfiniteData<TQueryFnData>,
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
-> = UseInfiniteQueryOptions<
-  TQueryFnData,
-  TError,
-  TData,
-  TQueryKey,
-  TPageParam
-> & {
+> = UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam> & {
   initialData:
     | NonUndefinedGuard<InfiniteData<TQueryFnData, TPageParam>>
     | (() => NonUndefinedGuard<InfiniteData<TQueryFnData, TPageParam>>)
@@ -48,20 +36,8 @@ export function infiniteQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
 >(
-  options: UndefinedInitialDataInfiniteOptions<
-    TQueryFnData,
-    TError,
-    TData,
-    TQueryKey,
-    TPageParam
-  >,
-): UndefinedInitialDataInfiniteOptions<
-  TQueryFnData,
-  TError,
-  TData,
-  TQueryKey,
-  TPageParam
-> & {
+  options: UndefinedInitialDataInfiniteOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>,
+): UndefinedInitialDataInfiniteOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam> & {
   queryKey: DataTag<TQueryKey, InfiniteData<TQueryFnData>, TError>
 }
 
@@ -72,20 +48,8 @@ export function infiniteQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
 >(
-  options: DefinedInitialDataInfiniteOptions<
-    TQueryFnData,
-    TError,
-    TData,
-    TQueryKey,
-    TPageParam
-  >,
-): DefinedInitialDataInfiniteOptions<
-  TQueryFnData,
-  TError,
-  TData,
-  TQueryKey,
-  TPageParam
-> & {
+  options: DefinedInitialDataInfiniteOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>,
+): DefinedInitialDataInfiniteOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam> & {
   queryKey: DataTag<TQueryKey, InfiniteData<TQueryFnData>, TError>
 }
 

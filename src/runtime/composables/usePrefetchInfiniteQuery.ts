@@ -24,13 +24,7 @@ export type UsePrefetchInfiniteQueryOptions<
   'queryFn'
 > & {
   queryFn?: Exclude<
-    InfiniteQueryExecuteOptions<
-      TQueryFnData,
-      TError,
-      TData,
-      TQueryKey,
-      TPageParam
-    >['queryFn'],
+    InfiniteQueryExecuteOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>['queryFn'],
     SkipToken
   >
 }
@@ -48,13 +42,7 @@ export function usePrefetchInfiniteQuery<
 >(
   options: MaybeRefOrGetter<
     MaybeRefDeep<
-      UsePrefetchInfiniteQueryOptions<
-        TQueryFnData,
-        TError,
-        TData,
-        TQueryKey,
-        TPageParam
-      >
+      UsePrefetchInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>
     >
   >,
   queryClient?: QueryClient,

@@ -1,8 +1,4 @@
-import type {
-  MutationFilters as MF,
-  Mutation,
-  MutationState,
-} from '@tanstack/query-core'
+import type { MutationFilters as MF, Mutation, MutationState } from '@tanstack/query-core'
 import type { Ref } from 'vue-demi'
 import type { MutationCache } from '../mutationCache'
 import type { QueryClient } from '../queryClient'
@@ -66,9 +62,7 @@ function getResult<TResult = MutationState>(
 }
 
 export function useMutationState<TResult = MutationState>(
-  options:
-    | MutationStateOptions<TResult>
-    | (() => MutationStateOptions<TResult>) = {},
+  options: MutationStateOptions<TResult> | (() => MutationStateOptions<TResult>) = {},
   queryClient?: QueryClient,
 ): Readonly<Ref<Array<TResult>>> {
   const resolvedOptions = computed(() => {

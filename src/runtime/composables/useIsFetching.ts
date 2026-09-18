@@ -26,9 +26,7 @@ export function useIsFetching(
 
   const listener = () => {
     const resolvedFilters =
-      typeof fetchingFilters === 'function'
-        ? fetchingFilters()
-        : fetchingFilters
+      typeof fetchingFilters === 'function' ? fetchingFilters() : fetchingFilters
     isFetching.value = client.isFetching(cloneDeepUnref(resolvedFilters))
   }
 

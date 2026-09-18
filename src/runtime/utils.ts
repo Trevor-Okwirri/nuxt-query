@@ -8,10 +8,7 @@ export function getClientKey(key?: string) {
   return `${VUE_QUERY_CLIENT}${suffix}`
 }
 
-export function updateState(
-  state: Record<string, any>,
-  update: Record<string, any>,
-): void {
+export function updateState(state: Record<string, any>, update: Record<string, any>): void {
   Object.keys(state).forEach((key) => {
     state[key] = update[key]
   })
@@ -21,11 +18,7 @@ export function updateState(
 // the level and key is provided to the callback function.
 function _cloneDeep<T>(
   value: MaybeRefDeep<T>,
-  customize?: (
-    val: MaybeRefDeep<T>,
-    key: string,
-    level: number,
-  ) => T | undefined,
+  customize?: (val: MaybeRefDeep<T>, key: string, level: number) => T | undefined,
   currentKey: string = '',
   currentLevel: number = 0,
 ): T {
@@ -58,19 +51,12 @@ function _cloneDeep<T>(
 
 export function cloneDeep<T>(
   value: MaybeRefDeep<T>,
-  customize?: (
-    val: MaybeRefDeep<T>,
-    key: string,
-    level: number,
-  ) => T | undefined,
+  customize?: (val: MaybeRefDeep<T>, key: string, level: number) => T | undefined,
 ): T {
   return _cloneDeep(value, customize)
 }
 
-export function cloneDeepUnref<T>(
-  obj: MaybeRefDeep<T>,
-  unrefGetters = false,
-): T {
+export function cloneDeepUnref<T>(obj: MaybeRefDeep<T>, unrefGetters = false): T {
   return cloneDeep(obj, (val, key, level) => {
     // Check if we're at the top level and the key is 'queryKey'
     //

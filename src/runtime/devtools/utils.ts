@@ -53,23 +53,23 @@ export function getQueryStatusFg(query: Query): number {
     return 0x000000
   }
 
-  return 0xFFFFFF
+  return 0xffffff
 }
 
 export function getQueryStatusBg(query: Query): number {
   const queryState = getQueryState(query)
 
   if (queryState === QueryState.Fetching) {
-    return 0x006BFF
+    return 0x006bff
   }
   if (queryState === QueryState.Paused) {
-    return 0x8C49EB
+    return 0x8c49eb
   }
   if (queryState === QueryState.Stale) {
-    return 0xFFB200
+    return 0xffb200
   }
   if (queryState === QueryState.Inactive) {
-    return 0x3F4E60
+    return 0x3f4e60
   }
 
   return 0x008327
@@ -77,8 +77,7 @@ export function getQueryStatusBg(query: Query): number {
 
 const queryHashSort: SortFn = (a, b) => a.queryHash.localeCompare(b.queryHash)
 
-const dateSort: SortFn = (a, b) =>
-  a.state.dataUpdatedAt < b.state.dataUpdatedAt ? 1 : -1
+const dateSort: SortFn = (a, b) => (a.state.dataUpdatedAt < b.state.dataUpdatedAt ? 1 : -1)
 
 const statusAndDateSort: SortFn = (a, b) => {
   if (getQueryState(a) === getQueryState(b)) {

@@ -4,12 +4,7 @@ import type { QueryClient } from '../queryClient'
 import { rankItem } from '@tanstack/match-sorter-utils'
 import { onlineManager } from '@tanstack/query-core'
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
-import {
-  getQueryStateLabel,
-  getQueryStatusBg,
-  getQueryStatusFg,
-  sortFns,
-} from './utils'
+import { getQueryStateLabel, getQueryStatusBg, getQueryStatusFg, sortFns } from './utils'
 
 const pluginId = 'vue-query'
 const pluginName = 'Vue Query'
@@ -43,7 +38,7 @@ export function setupDevtools(app: any, queryClient: QueryClient) {
         sortFn: {
           type: 'choice',
           label: 'Sort Function',
-          options: Object.keys(sortFns).map(key => ({
+          options: Object.keys(sortFns).map((key) => ({
             label: key,
             value: key,
           })),
@@ -142,18 +137,14 @@ export function setupDevtools(app: any, queryClient: QueryClient) {
       api.addTimelineLayer({
         id: pluginId,
         label: pluginName,
-        color: 0xFFD94C,
+        color: 0xffd94c,
       })
 
       queryCache.subscribe((event) => {
         api.sendInspectorTree(pluginId)
         api.sendInspectorState(pluginId)
 
-        const queryEvents: Array<QueryCacheNotifyEvent['type']> = [
-          'added',
-          'removed',
-          'updated',
-        ]
+        const queryEvents: Array<QueryCacheNotifyEvent['type']> = ['added', 'removed', 'updated']
 
         if (queryEvents.includes(event.type)) {
           api.addTimelineEvent({
@@ -183,9 +174,7 @@ export function setupDevtools(app: any, queryClient: QueryClient) {
           const settings = api.getSettings()
 
           const filtered = payload.filter
-            ? queries.filter(
-                item => rankItem(item.queryHash, payload.filter).passed,
-              )
+            ? queries.filter((item) => rankItem(item.queryHash, payload.filter).passed)
             : [...queries]
 
           const sorted = filtered.sort(

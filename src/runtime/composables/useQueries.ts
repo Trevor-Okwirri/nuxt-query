@@ -46,51 +46,45 @@ type GetUseQueryOptionsForUseQueries<T> =
   T extends UseQueryOptions
     ? DeepUnwrapRef<T>
     : // Part 2: responsible for applying explicit type parameter to function arguments, if object { queryFnData: TQueryFnData, error: TError, data: TData }
-    T extends {
-      queryFnData: infer TQueryFnData
-      error?: infer TError
-      data: infer TData
-    }
+      T extends {
+          queryFnData: infer TQueryFnData
+          error?: infer TError
+          data: infer TData
+        }
       ? UseQueryOptionsForUseQueries<TQueryFnData, TError, TData>
-      : T extends { queryFnData: infer TQueryFnData, error?: infer TError }
+      : T extends { queryFnData: infer TQueryFnData; error?: infer TError }
         ? UseQueryOptionsForUseQueries<TQueryFnData, TError>
-        : T extends { data: infer TData, error?: infer TError }
+        : T extends { data: infer TData; error?: infer TError }
           ? UseQueryOptionsForUseQueries<unknown, TError, TData>
           : // Part 3: responsible for applying explicit type parameter to function arguments, if tuple [TQueryFnData, TError, TData]
-          T extends [infer TQueryFnData, infer TError, infer TData]
+            T extends [infer TQueryFnData, infer TError, infer TData]
             ? UseQueryOptionsForUseQueries<TQueryFnData, TError, TData>
             : T extends [infer TQueryFnData, infer TError]
               ? UseQueryOptionsForUseQueries<TQueryFnData, TError>
               : T extends [infer TQueryFnData]
                 ? UseQueryOptionsForUseQueries<TQueryFnData>
                 : // Part 4: responsible for inferring and enforcing type if no explicit parameter was provided
-                T extends {
-                  queryFn?:
-                    | QueryFunction<infer TQueryFnData, infer TQueryKey>
-                    | SkipTokenForUseQueries
-                  select?: (data: any) => infer TData
-                  throwOnError?: ThrowOnError<any, infer TError, any, any>
-                }
+                  T extends {
+                      queryFn?:
+                        QueryFunction<infer TQueryFnData, infer TQueryKey> | SkipTokenForUseQueries
+                      select?: (data: any) => infer TData
+                      throwOnError?: ThrowOnError<any, infer TError, any, any>
+                    }
                   ? UseQueryOptionsForUseQueries<
-                    TQueryFnData,
-                    unknown extends TError ? DefaultError : TError,
-                    unknown extends TData ? TQueryFnData : TData,
-                    TQueryKey
-                  >
-                  : T extends {
-                    queryFn?:
-                      | QueryFunction<infer TQueryFnData, infer TQueryKey>
-                      | SkipTokenForUseQueries
-                    throwOnError?: ThrowOnError<any, infer TError, any, any>
-                  }
-                    ? UseQueryOptionsForUseQueries<
                       TQueryFnData,
-                      TError,
-                      TQueryFnData,
+                      unknown extends TError ? DefaultError : TError,
+                      unknown extends TData ? TQueryFnData : TData,
                       TQueryKey
                     >
+                  : T extends {
+                        queryFn?:
+                          | QueryFunction<infer TQueryFnData, infer TQueryKey>
+                          | SkipTokenForUseQueries
+                        throwOnError?: ThrowOnError<any, infer TError, any, any>
+                      }
+                    ? UseQueryOptionsForUseQueries<TQueryFnData, TError, TQueryFnData, TQueryKey>
                     : // Fallback
-                    UseQueryOptionsForUseQueries
+                      UseQueryOptionsForUseQueries
 
 // A defined initialData setting should return a DefinedQueryObserverResult rather than QueryObserverResult
 type GetDefinedOrUndefinedQueryResult<T, TData, TError = unknown> = T extends {
@@ -111,58 +105,48 @@ type GetDefinedOrUndefinedQueryResult<T, TData, TError = unknown> = T extends {
 
 type GetUseQueryResult<T> =
   // Part 1: if using UseQueryOptions then the types are already set
-  T extends UseQueryOptions<
-    infer TQueryFnData,
-    infer TError,
-    infer TData,
-    any,
-    any
-  >
+  T extends UseQueryOptions<infer TQueryFnData, infer TError, infer TData, any, any>
     ? GetDefinedOrUndefinedQueryResult<
-      T,
-      undefined extends TData ? TQueryFnData : TData,
-      unknown extends TError ? DefaultError : TError
-    >
+        T,
+        undefined extends TData ? TQueryFnData : TData,
+        unknown extends TError ? DefaultError : TError
+      >
     : // Part 2: responsible for mapping explicit type parameter to function result, if object
-    T extends { queryFnData: any, error?: infer TError, data: infer TData }
+      T extends { queryFnData: any; error?: infer TError; data: infer TData }
       ? GetDefinedOrUndefinedQueryResult<T, TData, TError>
-      : T extends { queryFnData: infer TQueryFnData, error?: infer TError }
+      : T extends { queryFnData: infer TQueryFnData; error?: infer TError }
         ? GetDefinedOrUndefinedQueryResult<T, TQueryFnData, TError>
-        : T extends { data: infer TData, error?: infer TError }
+        : T extends { data: infer TData; error?: infer TError }
           ? GetDefinedOrUndefinedQueryResult<T, TData, TError>
           : // Part 3: responsible for mapping explicit type parameter to function result, if tuple
-          T extends [any, infer TError, infer TData]
+            T extends [any, infer TError, infer TData]
             ? GetDefinedOrUndefinedQueryResult<T, TData, TError>
             : T extends [infer TQueryFnData, infer TError]
               ? GetDefinedOrUndefinedQueryResult<T, TQueryFnData, TError>
               : T extends [infer TQueryFnData]
                 ? GetDefinedOrUndefinedQueryResult<T, TQueryFnData>
                 : // Part 4: responsible for mapping inferred type to results, if no explicit parameter was provided
-                T extends {
-                  queryFn?:
-                    | QueryFunction<infer TQueryFnData, any>
-                    | SkipTokenForUseQueries
-                  select?: (data: any) => infer TData
-                  throwOnError?: ThrowOnError<any, infer TError, any, any>
-                }
+                  T extends {
+                      queryFn?: QueryFunction<infer TQueryFnData, any> | SkipTokenForUseQueries
+                      select?: (data: any) => infer TData
+                      throwOnError?: ThrowOnError<any, infer TError, any, any>
+                    }
                   ? GetDefinedOrUndefinedQueryResult<
-                    T,
-                    unknown extends TData ? TQueryFnData : TData,
-                    unknown extends TError ? DefaultError : TError
-                  >
-                  : T extends {
-                    queryFn?:
-                      | QueryFunction<infer TQueryFnData, any>
-                      | SkipTokenForUseQueries
-                    throwOnError?: ThrowOnError<any, infer TError, any, any>
-                  }
-                    ? GetDefinedOrUndefinedQueryResult<
                       T,
-                      TQueryFnData,
+                      unknown extends TData ? TQueryFnData : TData,
                       unknown extends TError ? DefaultError : TError
                     >
+                  : T extends {
+                        queryFn?: QueryFunction<infer TQueryFnData, any> | SkipTokenForUseQueries
+                        throwOnError?: ThrowOnError<any, infer TError, any, any>
+                      }
+                    ? GetDefinedOrUndefinedQueryResult<
+                        T,
+                        TQueryFnData,
+                        unknown extends TError ? DefaultError : TError
+                      >
                     : // Fallback
-                    QueryObserverResult
+                      QueryObserverResult
 
 /**
  * UseQueriesOptions reducer recursively unwraps function arguments to infer/enforce type param
@@ -179,32 +163,25 @@ export type UseQueriesOptions<
       ? [...TResults, GetUseQueryOptionsForUseQueries<Head>]
       : T extends [infer Head, ...infer Tails]
         ? UseQueriesOptions<
-          [...Tails],
-          [...TResults, GetUseQueryOptionsForUseQueries<Head>],
-          [...TDepth, 1]
-        >
+            [...Tails],
+            [...TResults, GetUseQueryOptionsForUseQueries<Head>],
+            [...TDepth, 1]
+          >
         : ReadonlyArray<unknown> extends T
           ? T
           : // If T is *some* array but we couldn't assign unknown[] to it, then it must hold some known/homogenous type!
-        // use this to infer the param types in the case of Array.map() argument
-          T extends Array<
-            UseQueryOptionsForUseQueries<
-              infer TQueryFnData,
-              infer TError,
-              infer TData,
-              infer TQueryKey
-            >
-          >
-            ? Array<
-              UseQueryOptionsForUseQueries<
-                TQueryFnData,
-                TError,
-                TData,
-                TQueryKey
+            // use this to infer the param types in the case of Array.map() argument
+            T extends Array<
+                UseQueryOptionsForUseQueries<
+                  infer TQueryFnData,
+                  infer TError,
+                  infer TData,
+                  infer TQueryKey
+                >
               >
-            >
+            ? Array<UseQueryOptionsForUseQueries<TQueryFnData, TError, TData, TQueryKey>>
             : // Fallback
-            Array<UseQueryOptionsForUseQueries>
+              Array<UseQueryOptionsForUseQueries>
 
 /**
  * UseQueriesResults reducer recursively maps type param to results
@@ -220,21 +197,12 @@ export type UseQueriesResults<
     : T extends [infer Head]
       ? [...TResults, GetUseQueryResult<Head>]
       : T extends [infer Head, ...infer Tails]
-        ? UseQueriesResults<
-          [...Tails],
-          [...TResults, GetUseQueryResult<Head>],
-          [...TDepth, 1]
-        >
+        ? UseQueriesResults<[...Tails], [...TResults, GetUseQueryResult<Head>], [...TDepth, 1]>
         : { [K in keyof T]: GetUseQueryResult<T[K]> }
 
-type UseQueriesOptionsArg<T extends Array<any>> = readonly [
-  ...UseQueriesOptions<T>,
-]
+type UseQueriesOptionsArg<T extends Array<any>> = readonly [...UseQueriesOptions<T>]
 
-export function useQueries<
-  T extends Array<any>,
-  TCombinedResult = UseQueriesResults<T>,
->(
+export function useQueries<T extends Array<any>, TCombinedResult = UseQueriesResults<T>>(
   {
     queries,
     ...options
@@ -242,11 +210,7 @@ export function useQueries<
     queries:
       | (() => MaybeRefDeep<UseQueriesOptionsArg<T>>)
       | MaybeRefDeep<UseQueriesOptionsArg<T>>
-      | MaybeRefDeep<
-        readonly [
-          ...{ [K in keyof T]: GetUseQueryOptionsForUseQueries<T[K]> },
-        ]
-      >
+      | MaybeRefDeep<readonly [...{ [K in keyof T]: GetUseQueryOptionsForUseQueries<T[K]> }]>
     combine?: (result: UseQueriesResults<T>) => TCombinedResult
   },
   queryClient?: QueryClient,
@@ -278,9 +242,7 @@ export function useQueries<
       }
 
       const defaulted = client.defaultQueryOptions(clonedOptions)
-      defaulted._optimisticResults = client.isRestoring?.value
-        ? 'isRestoring'
-        : 'optimistic'
+      defaulted._optimisticResults = client.isRestoring?.value ? 'isRestoring' : 'optimistic'
 
       return defaulted
     })
@@ -339,10 +301,7 @@ export function useQueries<
   }
 
   watch(defaultedQueries, (queriesValue) => {
-    observer.setQueries(
-      queriesValue,
-      options as QueriesObserverOptions<TCombinedResult>,
-    )
+    observer.setQueries(queriesValue, options as QueriesObserverOptions<TCombinedResult>)
     state.value = getOptimisticResult()
   })
 

@@ -22,11 +22,10 @@ import {
 import { cloneDeepUnref, updateState } from '../utils'
 import { useQueryClient } from './useQueryClient'
 
-type MutationResult<TData, TError, TVariables, TOnMutateResult> =
-  DistributiveOmit<
-    MutationObserverResult<TData, TError, TVariables, TOnMutateResult>,
-    'mutate' | 'reset'
-  >
+type MutationResult<TData, TError, TVariables, TOnMutateResult> = DistributiveOmit<
+  MutationObserverResult<TData, TError, TVariables, TOnMutateResult>,
+  'mutate' | 'reset'
+>
 
 export type UseMutationOptions<
   TData = unknown,
@@ -35,20 +34,14 @@ export type UseMutationOptions<
   TOnMutateResult = unknown,
 > =
   | MaybeRefDeep<MutationOptions<TData, TError, TVariables, TOnMutateResult>>
-  | (() => MaybeRefDeep<
-    MutationOptions<TData, TError, TVariables, TOnMutateResult>
-  >)
+  | (() => MaybeRefDeep<MutationOptions<TData, TError, TVariables, TOnMutateResult>>)
 
 type MutateSyncFunction<
   TData = unknown,
   TError = DefaultError,
   TVariables = void,
   TOnMutateResult = unknown,
-> = (
-  ...options: Parameters<
-    MutateFunction<TData, TError, TVariables, TOnMutateResult>
-  >
-) => void
+> = (...options: Parameters<MutateFunction<TData, TError, TVariables, TOnMutateResult>>) => void
 
 export type UseMutationReturnType<
   TData,
@@ -59,12 +52,7 @@ export type UseMutationReturnType<
 > = ToRefs<Readonly<TResult>> & {
   mutate: MutateSyncFunction<TData, TError, TVariables, TOnMutateResult>
   mutateAsync: MutateFunction<TData, TError, TVariables, TOnMutateResult>
-  reset: MutationObserverResult<
-    TData,
-    TError,
-    TVariables,
-    TOnMutateResult
-  >['reset']
+  reset: MutationObserverResult<TData, TError, TVariables, TOnMutateResult>['reset']
 }
 
 export function useMutation<
@@ -73,12 +61,7 @@ export function useMutation<
   TVariables = void,
   TOnMutateResult = unknown,
 >(
-  mutationOptions: UseMutationOptions<
-    TData,
-    TError,
-    TVariables,
-    TOnMutateResult
-  >,
+  mutationOptions: UseMutationOptions<TData, TError, TVariables, TOnMutateResult>,
   queryClient?: QueryClient,
 ): UseMutationReturnType<TData, TError, TVariables, TOnMutateResult> {
   if (process.env.NODE_ENV === 'development') {
@@ -92,9 +75,7 @@ export function useMutation<
   const client = queryClient || useQueryClient()
   const options = computed(() => {
     const resolvedOptions =
-      typeof mutationOptions === 'function'
-        ? mutationOptions()
-        : mutationOptions
+      typeof mutationOptions === 'function' ? mutationOptions() : mutationOptions
     return client.defaultMutationOptions(cloneDeepUnref(resolvedOptions))
   })
   const observer = new MutationObserver(client, options.value)
@@ -107,9 +88,7 @@ export function useMutation<
   })
 
   const mutate = (
-    ...args: Parameters<
-      MutateFunction<TData, TError, TVariables, TOnMutateResult>
-    >
+    ...args: Parameters<MutateFunction<TData, TError, TVariables, TOnMutateResult>>
   ) => {
     observer.mutate(args[0] as TVariables, args[1]).catch(() => {
       // This is intentional
@@ -124,9 +103,7 @@ export function useMutation<
     unsubscribe()
   })
 
-  const readonlyState = options.value.shallow
-    ? shallowReadonly(state)
-    : readonly(state)
+  const readonlyState = options.value.shallow ? shallowReadonly(state) : readonly(state)
 
   const resultRefs = toRefs(readonlyState) as ToRefs<
     Readonly<MutationResult<TData, TError, TVariables, TOnMutateResult>>
@@ -135,10 +112,7 @@ export function useMutation<
   watch(
     () => state.error,
     (error) => {
-      if (
-        error &&
-        shouldThrowError(options.value.throwOnError, [error as TError])
-      ) {
+      if (error && shouldThrowError(options.value.throwOnError, [error as TError])) {
         throw error
       }
     },

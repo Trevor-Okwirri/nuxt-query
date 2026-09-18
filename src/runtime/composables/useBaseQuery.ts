@@ -24,15 +24,8 @@ import {
 import { cloneDeepUnref, updateState } from '../utils'
 import { useQueryClient } from './useQueryClient'
 
-export type UseBaseQueryReturnType<
-  TData,
-  TError,
-  TResult = QueryObserverResult<TData, TError>,
-> = {
-  [K in keyof TResult]: K extends
-  | 'fetchNextPage'
-  | 'fetchPreviousPage'
-  | 'refetch'
+export type UseBaseQueryReturnType<TData, TError, TResult = QueryObserverResult<TData, TError>> = {
+  [K in keyof TResult]: K extends 'fetchNextPage' | 'fetchPreviousPage' | 'refetch'
     ? TResult[K]
     : Ref<Readonly<TResult>[K]>
 } & {
@@ -60,14 +53,7 @@ export function useBaseQuery<
 >(
   Observer: typeof QueryObserver,
   options: MaybeRefOrGetter<
-    UseQueryOptionsGeneric<
-      TQueryFnData,
-      TError,
-      TData,
-      TQueryData,
-      TQueryKey,
-      TPageParam
-    >
+    UseQueryOptionsGeneric<TQueryFnData, TError, TData, TQueryData, TQueryKey, TPageParam>
   >,
   queryClient?: QueryClient,
 ): UseBaseQueryReturnType<TData, TError> {
@@ -100,9 +86,7 @@ export function useBaseQuery<
       TQueryKey
     > = client.defaultQueryOptions(clonedOptions)
 
-    defaulted._optimisticResults = client.isRestoring?.value
-      ? 'isRestoring'
-      : 'optimistic'
+    defaulted._optimisticResults = client.isRestoring?.value ? 'isRestoring' : 'optimistic'
 
     return defaulted
   })
@@ -150,48 +134,40 @@ export function useBaseQuery<
   }
 
   const suspense = () => {
-    return new Promise<QueryObserverResult<TData, TError>>(
-      (resolve, reject) => {
-        let stopWatch = () => {
-          // noop
-        }
-        const run = () => {
-          if (defaultedOptions.value.enabled !== false) {
-            // fix #6133
-            observer.setOptions(defaultedOptions.value)
-            const optimisticResult = observer.getOptimisticResult(
-              defaultedOptions.value,
-            )
-            if (optimisticResult.isStale) {
-              stopWatch()
-              observer
-                .fetchOptimistic(defaultedOptions.value)
-                .then(resolve, (error: TError) => {
-                  if (
-                    shouldThrowError(defaultedOptions.value.throwOnError, [
-                      error,
-                      observer.getCurrentQuery(),
-                    ])
-                  ) {
-                    reject(error)
-                  }
-                  else {
-                    resolve(observer.getCurrentResult())
-                  }
-                })
-            }
-            else {
-              stopWatch()
-              resolve(optimisticResult)
-            }
+    return new Promise<QueryObserverResult<TData, TError>>((resolve, reject) => {
+      let stopWatch = () => {
+        // noop
+      }
+      const run = () => {
+        if (defaultedOptions.value.enabled !== false) {
+          // fix #6133
+          observer.setOptions(defaultedOptions.value)
+          const optimisticResult = observer.getOptimisticResult(defaultedOptions.value)
+          if (optimisticResult.isStale) {
+            stopWatch()
+            observer.fetchOptimistic(defaultedOptions.value).then(resolve, (error: TError) => {
+              if (
+                shouldThrowError(defaultedOptions.value.throwOnError, [
+                  error,
+                  observer.getCurrentQuery(),
+                ])
+              ) {
+                reject(error)
+              } else {
+                resolve(observer.getCurrentResult())
+              }
+            })
+          } else {
+            stopWatch()
+            resolve(optimisticResult)
           }
         }
+      }
 
-        run()
+      run()
 
-        stopWatch = watch(defaultedOptions, run)
-      },
-    )
+      stopWatch = watch(defaultedOptions, run)
+    })
   }
 
   // Handle error boundary
@@ -212,9 +188,7 @@ export function useBaseQuery<
   )
 
   // @ts-expect-error
-  const readonlyState = defaultedOptions.value.shallow
-    ? shallowReadonly(state)
-    : readonly(state)
+  const readonlyState = defaultedOptions.value.shallow ? shallowReadonly(state) : readonly(state)
 
   const object: any = toRefs(readonlyState)
   for (const key in state) {
