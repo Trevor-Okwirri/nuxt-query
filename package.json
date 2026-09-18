@@ -1,9 +1,20 @@
 {
-  "name": "@repo/nuxt-query",
+  "name": "@trevorokwirri/nuxt-query",
   "type": "module",
   "version": "1.0.0",
-  "description": "Nuxt module wrapping TanStack Query with SSR state transfer via useState",
+  "description": "TanStack Query for Nuxt with SSR hydration and auto-imported composables",
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "tanstack-query",
+    "vue-query",
+    "data-fetching",
+    "ssr"
+  ],
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "exports": {
     ".": {
       "types": "./dist/types.d.mts",
@@ -47,27 +58,26 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@nuxt/kit": "catalog:",
-    "@tanstack/match-sorter-utils": "catalog:",
-    "@tanstack/query-core": "catalog:",
-    "@vue/devtools-api": "catalog:",
-    "vue-demi": "catalog:"
+    "@nuxt/kit": "^4.4.8",
+    "@tanstack/match-sorter-utils": "^8.19.4",
+    "@tanstack/query-core": "^5.102.8",
+    "@vue/devtools-api": "^6.6.4",
+    "vue-demi": "^0.14.10"
   },
   "devDependencies": {
-    "@nuxt/a11y": "catalog:",
-    "@nuxt/devtools": "catalog:",
-    "@nuxt/hints": "catalog:",
-    "@nuxt/module-builder": "catalog:",
-    "@nuxt/schema": "catalog:",
-    "@nuxt/test-utils": "catalog:",
-    "@repo/eslint-config": "workspace:*",
-    "@types/node": "catalog:",
-    "changelogen": "catalog:",
-    "eslint": "catalog:",
-    "nuxt": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:",
-    "vue": "catalog:",
-    "vue-tsc": "catalog:"
+    "@nuxt/a11y": "1.0.0-alpha.1",
+    "@nuxt/devtools": "^3.2.4",
+    "@nuxt/hints": "^1.1.4",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.4.8",
+    "@nuxt/test-utils": "^4.0.2",
+    "@types/node": "^25.6.0",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.39.1",
+    "nuxt": "4.4.8",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.5",
+    "vue": "^3.5.33",
+    "vue-tsc": "^3.2.4"
   }
 }
